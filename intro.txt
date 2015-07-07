@@ -1,0 +1,47 @@
+Intro to Automated Testing, TDD, BDD
+
+Automated Testing
+ - as you build your application, you are testing it as you build anyway (via IRB, or re-running it multiple times)
+ - but, we're programmers! repetitive processes are exactly the sort of things we're good at automating
+ - you can write scripts that repeatedly test you application
+ - benefits:
+   - saves you time (from manually running tests)
+   - less things to keep in your head (don't need to keep the entire application in your head, just the part you're working on)
+   - less things to remember (when you come back to a project after a while)
+   - tests can act as documentation
+   - avoid things breaking when multiple people work together
+
+
+TDD: Test Driven Development
+ - more than just "write tests", it's a process of building applications
+ - process: write test (red), do minimum to make test pass (green), *commit*, refactor, repeat
+ - write your tests and code "outside-in"
+    - write code you wish you had (using classs)
+ - you should test interfaces (to classes) and interactions, not implementation (ex. don't test private methods)
+ - usually have:
+   - 1 spec per class
+   - extra specs for interactions between classes, different contexts, etc.
+   - (like oranizing your code, organizing your tests becomes its own challenge)
+
+BDD: Behaviour Driven Development
+ - tests described from point-of-view of various stakeholders (end-user, administrator)
+   - therefore, would usually be testing the user-interface and other user facing parts of an application (ex. email)
+ - often written in form "given... when... then..."
+ - written in the language of the user
+ - see: https://en.wikipedia.org/wiki/Behavior-driven_development
+ - in ruby land, BDD tests are often written with the help of cucumber: https://cucumber.io/
+
+
+RSpec
+ - ruby library used for testing (by far the most popular)
+ - live code: https://github.com/rafd/lighthouse-w2d2
+
+Writing Better Tests:
+ - stubs and mocks
+    - fake objects and methods
+    - useful when you haven't implemented a class that your current class interacts with
+    - also helps your tests to become more independent (ideally, test file testing Class A would *only* require Class A )
+ - rspec also has 'subject', 'let', contexts
+
+
+
