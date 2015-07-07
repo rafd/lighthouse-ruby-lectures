@@ -12,7 +12,7 @@ class Twitter
 
   def self.login(name, password)
     u = User.find(name)
-    if u.password == password
+    if u.verify_password(password)
       return u
     else
       return nil

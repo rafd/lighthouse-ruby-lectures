@@ -1,7 +1,7 @@
 class User
   @@users = {}
 
-  attr_accessor :name, :password
+  attr_accessor :name
 
   def initialize(name, password)
     @name = name
@@ -10,6 +10,10 @@ class User
     @@users[name] = self
 
     return self
+  end
+
+  def verify_password(password)
+    @password == password
   end
 
   def self.find(name)
