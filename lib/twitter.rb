@@ -2,20 +2,16 @@ require_relative 'user.rb'
 
 class Twitter
 
-  @@users = {}
-
   def self.register(name, password)
-    if @@users[name]
+    if User.find(name)
       return nil
     else
-      u = User.new(name, password)
-      @@users[name] = u
-      return u
+      return User.new(name, password)
     end
   end
 
   def self.login(name, password)
-    u = @@users[name]
+    u = User.find(name)
     if u.password == password
       return u
     else
