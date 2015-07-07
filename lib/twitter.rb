@@ -5,17 +5,21 @@ class Twitter
   @@users = {}
 
   def self.register(name, password)
-    u = User.new(name, password)
-    @@users[name] = u
-    return u
+    if @@users[name]
+      return nil
+    else
+      u = User.new(name, password)
+      @@users[name] = u
+      return u
+    end
   end
 
   def self.login(name, password)
     u = @@users[name]
     if u.password == password
-      u
+      return u
     else
-      nil
+      return nil
     end
   end
 end
