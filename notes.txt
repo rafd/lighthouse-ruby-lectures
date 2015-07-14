@@ -1,0 +1,32 @@
+the problem:
+  we want to use a database with our program, but want to keep things object-oriented
+  we want to keep working with classes, objects (and not with whatever way the db returns things)
+  we want to keep the database concerns seperate (the rest of the application shouldn't know that the Country class persists to a postgres database)
+
+the solution:
+  ORM - object relational mapping - a way to convert between objects in your language and data in your database
+
+  relational databases (ex. postgres) are a decent match to how we use objects:
+     Classes    : Tables
+     Instances  : Rows
+     Accessors  : Columns
+
+
+  there are 2 popular patterns of ORM systems:
+    ActiveRecord
+      the class we want to persists knows about the database (ex. Contact)
+        class knows how to retrieve records (ex. Contact.all, Contact.find(...) )
+        instances know how to create, update, delete themselves (ex. c.save, c.delete)
+
+    DataMapper
+      a seperate class (ex. ContactMapper) is used to convert between the class we want to persist (ex. Contact)
+        the class we work with inside our application (ex. Contact) knows nothing about databases
+        the persistance class (ex. ContactMapper) knows how to create/update/delete contact instances (ex. ContactMapper.update(c)) and read (ex. ContactMapper.getAll())
+
+    the ActiveRecord pattern is very popular in the Ruby ecosystem (Rails uses it);
+      you will soon start using a gem called 'ActiveRecord'
+
+    the DataMapper pattern is popular in other ecosystems;
+      it's often used when your database structure doesn't exactly match 1:1 with the objects you want;
+      offers better seperation of concerns; also helps avoid your class from becoming too big
+      in ruby, a popular DM gem is: http://datamapper.org/

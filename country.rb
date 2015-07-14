@@ -10,16 +10,14 @@ class Country
     @area = hash["area"].to_i
   end
 
-
   def save
-    # persist to db (insert or update)
     if id
       sql = 'UPDATE countries SET name=$1, population=$2, capital=$3, area=$4 WHERE id=$5;'
-      self.class.connection.exec_params(sql,[name, population,capital,area,id])
+      self.class.connection.exec_params(sql, [self.name, self.population, self.capital, self.area, @id])
     else
-      sql = 'INSERT INTO countries (name,population,capital,area) VALUES ($1,$2,$3,$4) RETURNING id'
-      result = self.class.connection.exec_params(sql,[name, population,capital,area])
-      id = result[0]["id"].to_i
+      sql = 'INSERT INTO countries (name, population, capital, area) VALUES ($1, $2, $3, $4) RETURNING id'
+      result = self.class.connection.exec_params(sql, [self.name, self.population, self.capital, self.area])
+      @id = result[0]["id"].to_i
     end
   end
 
@@ -31,24 +29,14 @@ class Country
   end
 
   def self.all
-    # query db for all 'countries' and return array of country objects
-
     self.connection.exec('SELECT * FROM countries;') do |results|
       results.map do |hash|
         Country.new(hash)
       end
     end
-
   end
+
+  # can add other class methods, ex. find(name)
 
 end
 
-
-
-
-# c = Country.new(...)
-# c.name = "Foo"
-# c.save
-# c.name = "Bar"
-# c.save
-# Country.all  # [ ... ]
