@@ -1,0 +1,20 @@
+
+
+Classes -----  Tables
+Instances ----  Rows/Records
+Instance Vars / Properties   ---- Columns
+Related Objects (via methods) ------- Relations
+
+
+
+
+ActiveRecord
+  class knows how to retrieve
+  instances know how to save themselves
+
+  Country.all
+  c.save
+
+DataMapper
+  seperate class, whose role  to convert class-instances->db
+     db results -> class-instances
