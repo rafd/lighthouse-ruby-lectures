@@ -16,10 +16,10 @@ end
 post "/task" do
   TASKS[params["id"]] = {id: params["id"],
                         description: params["description"]}
-  true
+  body ''
 end
 
 delete "/task/:id" do
   TASKS.delete(params[:id])
-  true
+  body ''
 end
