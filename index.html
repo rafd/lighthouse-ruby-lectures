@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>TODO LIST APP</title>
+</head>
+<body>
+<ul id="tasks">
+  <li class='task'>task 1</li>
+</ul>
+
+<form>
+  <input placeholder="what do you want to get done?" id="new-task"></input>
+  <button>Add</button>
+</form>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+
+$("form").on("submit", function(e) {
+  e.preventDefault();
+  var value = $("#new-task").val();
+  $("<li class='task'>"+value+"</li>").appendTo("#tasks");
+  $("#new-task").val("")
+});
+
+
+</script>
+
+</body>
+</html>
