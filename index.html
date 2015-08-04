@@ -22,10 +22,13 @@ $("form").on("submit", function(e) {
   e.preventDefault();
   var value = $("#new-task").val();
   $("<li class='task'>"+value+"</li>").appendTo("#tasks");
+
   $("#new-task").val("")
 });
 
-
+$("#tasks").on("click", ".task", function(e) {
+  $(e.target).remove();
+})
 </script>
 
 </body>
