@@ -1,0 +1,45 @@
+websockets
+
+context/problem:
+  HTTP is a request-response protocol, but sometimes, we want the server to be able to 'push' a message to the client
+    ex. chat app, want to get messages from other users immediately
+  there are hacky ways to do this with HTTP (polling, long polling, comet: https://en.wikipedia.org/wiki/Comet_(programming) )
+    ex. chat app, polling: ask every 1 sec if there are new messages
+  ...but they usually have downsides (hacky, slow, high bandwidth)
+  instead, browsers now support 'websockets', allowing for 2-way message sending (client->server, server->client)
+
+
+websockets:
+  is a protocol (like HTTP)
+  instead of using Ajax on the client and writing a server with HTTP routes (w/ sinatra for example), we implement websockets on both client and server
+  all modern browsers support it now :)
+  key concepts:
+    persistent connection
+    both sides can start sending data at any time
+    we come up with names for events that client sends (and server listens to), and server sends (and client listens to)
+    client (usually) just talks to one server; server needs to manage messages between many connected clients
+
+  many libraries (for client and server)
+    we will use the native websocket api (client/browser) and ws (node server)
+    see also: socket.io
+
+chat example:
+  client->server message types:
+    register
+    message
+    mousemove
+  server->client message types:
+    message
+    mousemove
+
+  potential improvements:
+    show user old messages (before they joined the chat room)
+    when creating message and moving mouse, update the local state immediately (currently we update it when we receive the message back from the server)
+    remove dots of disconnected users
+    show name of user beside dot
+    security:
+      don't allow duplicate names
+      character-encode the name (to prevent injection attacks)
+      limit name to be something that can be within the #id attribute
+
+
