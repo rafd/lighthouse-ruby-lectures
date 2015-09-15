@@ -1,30 +1,30 @@
 REST
 
 way of organizing routes for resources
-“resource” ~= Model/Class ~= Table (most of the time)
+“resource” ~= Model/Class ~= Table (most of the time, but sometimes an abstraction, ex. sessions)
 
-GET /thing
+GET /things
   lists all things;
      Thing.all
 
-GET /thing/:id
+GET /things/:id
   info about id;
     Thing.find(id)
 
-GET /thing/:id/edit
+GET /things/:id/edit
   form for editing thing
 
-GET /thing/new
+GET /things/new
   form for new thing
 
-POST /thing
+POST /things (w/ thing data)
   create a new thing;
     Thing.create(params)
 
-POST /thing/:id
+POST /things/:id (w/ thing data)
   update a thing;
     Thing.find(id).update(params).save()
 
-DELETE /thing/:id
+DELETE /things/:id
    delete a thing
       Thing.find(id).destroy
