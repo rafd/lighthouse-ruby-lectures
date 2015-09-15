@@ -1,7 +1,7 @@
 # http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
 
 post "/session" do
-   if @user = User.where(email: params[:email]).authenticate(params[:password])
+   if @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
      session[:user_id] = @user.id
    else
      # some error
