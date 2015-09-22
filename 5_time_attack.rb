@@ -1,35 +1,27 @@
-time_off_total = 0
-number_of_trials = 0
-run = true
+def average(array)
+  sum = 0
+  array.each do |x|
+    sum += x
+  end
+  return sum / array.length
+end
 
-while run
-  time_target = 1 + rand(10)
+times_off_by = []
+
+while true
+  time_target = rand(3..7)
   puts ""
-  puts "Press enter in #{time_target} seconds"
+  puts "hit enter in #{time_target} seconds"
+
   time_start = Time.now
-
-  input = gets
-
+  gets
   time_end = Time.now
+  time_difference = time_end - time_start
+  puts "you took #{time_difference} seconds"
 
-  # check if we should end
-  if input.chomp == "stop"
-    run = false
-  end
+  time_off_by = (time_target - time_difference).abs
+  times_off_by << time_off_by
+  puts "you were off by #{time_off_by} seconds"
 
-  # do some calculations
-  time_delta = (time_end - time_start).round(2)
-  number_of_trials += 1
-  time_off = (time_target - time_delta).round(2)
-  time_off_total += time_off.abs
-
-  # print results
-  puts "You took #{time_delta} seconds"
-  if time_off > 0
-    puts "You were too fast by #{time_off}s"
-  else
-    puts "You were too slow by #{-1 * time_off}s"
-  end
-  average = (time_off_total / number_of_trials).round(2)
-  puts "Your average off-by is #{average}s"
+  puts "your average is #{average(times_off_by)} seconds"
 end
