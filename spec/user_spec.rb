@@ -1,15 +1,13 @@
-require_relative "spec_helper.rb"
-require_relative "../lib/user.rb"
-
 describe User do
-  describe "#verify_password" do
-    it "returns true if password matches" do
-      u = User.new("r","p")
-      expect(u.verify_password("p")).to be true
+  describe "#authenticate" do
+    it "returns the user if password matches" do
+      user = User.new("raf","password")
+
+      expect(user.authenticate("password")).to eq(user)
     end
-    it "returns false if password does not match" do
-      u = User.new("x","p")
-      expect(u.verify_password("x")).to be false
+    it "returns nil if password does not match" do
+      user = User.new("raf","password")
+      expect(user.authenticate("xpassword")).to be_nil
     end
   end
 end

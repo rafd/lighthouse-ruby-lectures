@@ -1,35 +1,30 @@
-require_relative "spec_helper.rb"
-require_relative '../lib/app.rb'
+require_relative "../lib/app"
 
 describe App do
   describe "#register" do
     it "returns a user object when given username, password" do
       new_user = App.register("raf","password")
-
-      expect(new_user).to be_a(User)
       expect(new_user.name).to eq("raf")
     end
-    it "returns nil when user already exists" do
-      new_user = App.register("raf","password")
+    it "returns nil when user with name already exists" do
+      new_user = App.register("raf","password1")
 
       expect(new_user).to be_nil
     end
   end
-
   describe "#login" do
-    it "when name and password match, returns user" do
+    it "when name and password match, return user" do
       user = App.login("raf","password")
 
-      expect(user).to be_a(User)
       expect(user.name).to eq("raf")
     end
-    it "when user with name does not exist, returns nil" do
-      user = App.login("abc","abc")
+    it "when name and password don't match, return nil" do
+      user = App.login("raf","xpassword")
 
       expect(user).to be_nil
     end
-    it "when name and password do not match, returns nil" do
-      user = App.login("raf","abc")
+    it "when user with name does not exist, return nil" do
+      user = App.login("xraf","xpassword")
 
       expect(user).to be_nil
     end
