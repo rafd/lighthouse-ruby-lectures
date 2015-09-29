@@ -5,15 +5,15 @@ class App
 
   def self.register(name,password)
     if @users[name]
-      return nil
+      nil
     else
-      return @users[name] = User.new(name,password)
+      @users[name] = User.new(name,password)
     end
   end
 
   def self.login(name,password)
     if @users[name]
-      return @users[name].authenticate(password)
+      @users[name].authenticate(password)
     end
   end
 end

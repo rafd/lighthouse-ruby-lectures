@@ -14,7 +14,7 @@ class User
 
   def authenticate(password)
     if @password == shitty_encrypt(password)
-      return self
+      self
     end
   end
 end
