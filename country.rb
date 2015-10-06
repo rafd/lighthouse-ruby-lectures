@@ -38,7 +38,15 @@ class Country
     end
   end
 
-  # can add other class methods, ex. find(name)
+  def self.find(id)
+    results = conn.exec_params('SELECT * from countries WHERE id=$1',[id])
+    if results[0]
+      Country.new(results[0])
+    end
+  end
+
+  # can add other class methods, ex. where({:name => "Canada"})
+  # can add string to symbol conversion for keys
 
 end
 
