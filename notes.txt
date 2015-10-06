@@ -11,6 +11,8 @@ the solution:
      Instances  : Rows
      Accessors  : Columns
 
+    * not a perfect match, its a 'leaky abstraction', https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch
+
 
   there are 2 popular patterns of ORM systems:
     ActiveRecord
