@@ -1,3 +1,5 @@
+require 'pg'
+
 class Country
   attr_accessor :name, :population, :capital, :area
   attr_reader :id
