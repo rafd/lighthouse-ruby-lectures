@@ -1,0 +1,18 @@
+TESTING WEB APPS:
+
+  Capybara:
+    https://github.com/jnicklas/capybara
+
+  Sample Template:
+    https://github.com/tjstankus/sinatra-rspec-capybara-template
+
+  Modified sinatra-skeleton:
+    https://github.com/rafd/sinatra-skeleton/commit/72d4f285cc0b5784eadca190a84f775526b771ba
+
+    To patch your current project:
+
+      wget https://github.com/rafd/sinatra-skeleton/commit/72d4f285cc0b5784eadca190a84f775526b771ba.patch
+      git apply 72d4f285cc0b5784eadca190a84f775526b771ba.patch
+      rm 72d4f285cc0b5784eadca190a84f775526b771ba.patch
+      # test if it works: bundle exec rspec
+      # commit

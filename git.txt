@@ -1,0 +1,18 @@
+GIT:
+
+  I recommend to turn off fast-forward.
+    What is ff? http://ariya.ofilabs.com/2013/09/fast-forward-git-merge.html
+    How to turn it off? Just run:
+      git config --global --add merge.ff false
+
+   Simple branch workflow:
+     Github Flow:
+       https://guides.github.com/introduction/flow/index.html
+       http://scottchacon.com/2011/08/31/github-flow.html
+       Note: if you don't want to do 'pull requests', you can just merge things locally
+
+   Recommended GUI for Git:
+      https://www.sourcetreeapp.com/
+
+   Branching, Merging, Pushing still confusing? Read:
+      http://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell
