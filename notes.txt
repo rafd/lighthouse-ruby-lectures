@@ -1,0 +1,90 @@
+SINATRA EXTRAS
+
+  read the readme: http://www.sinatrarb.com/intro.html
+
+
+SEEDING
+
+  in your Rakefile
+
+  task "db:seed" do
+    puts "Generating dummy data..."
+
+    Product.delete_all
+    Product.create!(name: "Foo")
+    # ...
+  end
+
+
+PARTIALS
+
+   http://www.sinatrarb.com/faq.html#partials
+
+   <%= erb :_mypartial, locals: {foo: "bar"} %>
+
+   (convention is to name your partials with an underscore)
+
+
+HELPERS
+
+   http://www.sinatrarb.com/intro.html#Helpers
+
+   can be used inside your views
+   it may be better to put code into your model (class or instance methods)
+
+  helpers do
+    def current_user
+      User.find(session["id"])
+    end
+  end
+
+FILTERS (BEFORE, AFTER)
+
+   http://www.sinatrarb.com/intro.html#Filters
+
+  before do
+    @user = current_user
+  end
+
+  before "/admin/*" do
+    @admin = Admin.find(session["id"])
+  end
+
+
+CONTENT TYPES
+
+  http responses have a header "content-type" which lets the client (ex. the browser) know what format the body of the response is in (ex. html, or css, or csv, or pdf, or json)
+  depending on the format, the client will handle it differently
+     HTML -> display it
+     PDF -> display it using PDF renderer (if browser has it)
+     CSV -> download it
+
+  in sinatra, just need to:
+    content_type :the_type
+
+
+JSON
+
+  get '/' do
+    content_type :json
+    ["foo","bar","baz"].to_json
+  end
+
+
+AJAX
+
+  fetching data from a url using javascript (more on this in 2 weeks)
+
+  # using jQuery
+  https://api.jquery.com/jQuery.ajax/
+
+  $(function() {
+    $.ajax({
+      url: "/some/path",
+      method: "POST",
+      data: { foo: "bar" }
+    }).done(function(data) {
+       console.log(data);
+    });
+  });
+
