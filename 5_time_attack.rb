@@ -1,27 +1,38 @@
-def average(array)
+def average(arr)
   sum = 0
-  array.each do |x|
-    sum += x
+  arr.each do |a|
+    sum += a
   end
-  return sum / array.length
+  return sum / arr.length
 end
 
-times_off_by = []
+sum = 0
+count = 0
+errors = []
 
 while true
-  time_target = rand(3..7)
-  puts ""
-  puts "hit enter in #{time_target} seconds"
+  target_time = rand(2..6)
 
-  time_start = Time.now
+  puts "Hit enter in #{target_time}s"
+  t_0 = Time.now
   gets
-  time_end = Time.now
-  time_difference = time_end - time_start
-  puts "you took #{time_difference} seconds"
+  t_1 = Time.now
 
-  time_off_by = (time_target - time_difference).abs
-  times_off_by << time_off_by
-  puts "you were off by #{time_off_by} seconds"
+  delta = t_1 - t_0
+  puts "You took #{delta.round(2)}s"
 
-  puts "your average is #{average(times_off_by)} seconds"
+  error = (target_time - delta).abs
+  puts "You were off by #{error.round(2)}s"
+
+  sum += error
+  count += 1
+
+  errors << error
+
+  # puts errors.inspect
+
+  puts "Average Error: #{(sum/count).round(2)}s"
+  puts "Average Error: #{average(errors).round(2)}s"
+
+  puts ""
 end

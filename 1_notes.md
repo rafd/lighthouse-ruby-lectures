@@ -29,9 +29,14 @@ intro to programming and ruby
     have methods
       "Hello".reverse
 
+      you should look up the various methods of the types above
+
+      http://ruby-doc.org/core-2.2.3/String.html
+      http://ruby-doc.org/core-2.2.3/Integer.html
+
     (we'll learn about making our own objects next week)
 
-  functions (aka methods)
+  methods (aka functions)
     reusable chunks of code
     can take in 'arguments'
     function will return value of last statement in the function
@@ -69,10 +74,13 @@ intro to programming and ruby
     end
 
     (we'll learn more about lists tomorrow)
+    http://ruby-doc.org/core-2.2.3/Array.html
 
   stdio
     gets.chomp
     puts
+
+    gets always returns a string!
 
 debugging
   errors are your friend
