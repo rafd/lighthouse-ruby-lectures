@@ -7,11 +7,14 @@ def sum_if(arr)
       sum += x
     end
   end
+  sum
 end
 
-sum_if([1,2,3,4,5]) do |x|
+a = sum_if([1,2,3,4,5]) do |x|
   x % 2 == 0
 end
+
+puts a
 
 
 
@@ -23,13 +26,14 @@ def reduce(arr, init=nil)
   arr[start,arr.length].each do |i|
     memo = yield(memo,i)
   end
-  return memo
+  memo
 end
 
-reduce([1,2,3,4],0) do |sum,x|
+b = reduce([1,2,3,4],0) do |sum,x|
   sum + x
 end
 
+puts b
 
 
 
