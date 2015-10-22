@@ -17,6 +17,27 @@ require_relative
 
   require_relative "../relative/path/to/file"
 
+
+regex groups
+
+  you can extract sub-matches using regex groups  (whenever you use brackets inside a regex)
+
+  m = /(\d{3}).?(\d{3}).?(\d{4})/.match("416-123-4567")
+
+  #=> #<MatchData "416-123-4567" 1:"416" 2:"123" 3:"4567">
+
+  MatchData can be accessed like an array, first result is the entire match, the rest are the groups
+
+
+  String#gsub can be passed a block, which has groups defined as $1, $2...
+
+  "123-456-7890".gsub(/(\d{3}).?(\d{3}).?(\d{4})/) do
+     $2+$1+"XXXX"
+   end
+
+  #=> "456123XXXX"
+
+
 enumerables
   http://ruby-doc.org/core-2.2.2/Enumerable.html
   Array, Hashes (and other classes) are subclasses of Enumerable
