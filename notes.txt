@@ -47,41 +47,133 @@ RUBY VS JS
   syntax differences
     http://agentcooper.io/js-ruby-comparison/
 
-  key things to know
-    first-order functions
-      ie. functions are objects
+FIRST ORDER FUNCTIONS
 
-      var square = function(x) {
-        return x*x;
-      }
-      square // the function object
-      square(6) // calling the function
+  ie. functions are objects
 
-      no implicit returns
-      can have anonymous functions (think blocks in ruby)
+  var square = function(x) {
+    return x*x;
+  }
+  square // the function object
+  square(6) // calling the function
 
-    most functions are asynchronous
-      need to use the callback pattern
+  no implicit returns (must use return, or else it returns nil)
+  can have anonymous functions
+    function(foo) { .... }
 
-      doSomethingAsync(data, function(x,y,z) {
-        // then do this
-      });
+  you can pass functions to functions
 
-    hashes/maps == objects
-      can use prototypes to define things which can have instances, but in practise, js devs just use hashes
+  often you see anonymous functions passed to functions (like blocks in ruby)
 
-      var contact = {
-        first_name: "John",
-        last_name: Smith",
-        email: 'john.smith@gmail.com',
-        fullName: function() {
-          return this.first_name + ' ' + this.last_name;
-        }
-      };
+  var each = function(arr, iter) {
+    for(var i = 0; i < a.length; i++) {
+      iter(a[i]);
+    }
+  }
+  each([1,2,3,4], function(x) {
+    console.log(x);
+  });
 
-    scope
-      defaults to global
-      use var
+
+EVENTS AND ASYNCHRONICITY
+
+  in js, can ask system to "listen" for a type of event, and run some code when it happens
+
+  window.addEventListener("click", function() {
+    console.log("clicked!")
+  });
+  console.log("other stuff")
+
+  the console.log("clicked!") above only gets called when a click happens
+  the console.log("other stuff") gets printed immediately
+
+  the idea that "we schedule code to run in the future" is new
+  very useful for things that can take a long time
+  most system functions (like ajax, or file read) are async
+  your own functions are blocking, (ex. calculating fibonacci), unless you use async functions inside
+
+  make-ajax-request-that-takes-long-time(request-data, function(response-data) {
+      // do something with response-data
+      console.log(response-data);
+      console.log("inside");
+  }, 5000);
+  console.log("outside");
+
+  in ruby, the above example would print: inside, outside
+  in js, the above example would print: outside, inside
+
+  the pattern above is very common:
+    some-async-func(data, callback-function, timeout)
+
+SCOPE
+
+  by default, every variable is global, unless you use var
+  get into habit of using var
+  functions create new scopes, can access variables in parent scopes
+
+  var a = 1;
+  var a = 2;
+  // a == 2
+  var f = function() {
+    // a == 2
+    var a = 3;
+    // a == 3
+    var b = 4;
+    c = 3;
+    // b == 4
+    // c == 3
+  }
+  // a == 2
+  // b == undefined
+  // c == 3
+
+CLOSURES
+
+  when a function is created, it will "remember" the variables in scope if it references them
+
+  var f = function(start) {
+    var a = start;
+    return function() {
+      a += 1;
+      console.log(a);
+    }
+  }
+  g = f(10);
+  g();
+  g();
+  h = f(100);
+  h();
+  h();
+  g();
+  h();
+
+
+HASHES / MAPS == OBJECTS
+
+  js does have objects and supports inheritance (more on that later), but most js is not object-oriented
+
+  can store functions in hashes
+  can have functions return objects
+
+  var contact = {
+    first_name: "John",
+    last_name: Smith",
+    email: 'john.smith@gmail.com',
+    fullName: function() {
+      return this.first_name + ' ' + this.last_name;
+    }
+  };
+
+  can reference keys in 2 ways:
+
+    contact.first_name; // == "John"
+    contact["first_name"]; // == "John"
+
+  for non-string keys, need to use the [] way:
+
+    obj[5.0] = "five";
+    obj[5.0] // == "five";
+
 
 EXAMPLES
 
