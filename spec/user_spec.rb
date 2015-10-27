@@ -1,27 +1,26 @@
-require_relative 'spec_helper'
-require_relative '../lib/user.rb'
+require_relative "../lib/user"
 
 describe User do
   describe "#new" do
-    it "returns a user with a name" do
-      user = User.new("raf","password")
+    it "returns user with name" do
+      new_user = User.new("bob","password")
 
-      expect(user).to be_a(User)
-      expect(user.name).to eq("raf")
+      expect(new_user.name).to eq("bob")
+    end
+    it "returns user without password" do
+      new_user = User.new("bob","password")
+
+      expect{new_user.password}.to raise_error NoMethodError
     end
   end
-
-  describe "#verify_password" do
-    before :each do
-      @user = User.new("raf","password")
+  describe "#authenticate" do
+    it "returns true when password matches" do
+      user = User.new("bob","password")
+      expect(user.authenticate("password")).to be(true)
     end
-
-    it "returns true for matching password" do
-      expect(@user.verify_password("password")).to be_truthy
-    end
-
-    it "returns false for wrong password" do
-      expect(@user.verify_password("wrong")).to be_falsey
+    it "returns false if password does not match" do
+      user = User.new("bob","password")
+      expect(user.authenticate("xpassword")).to be(false)
     end
   end
 end

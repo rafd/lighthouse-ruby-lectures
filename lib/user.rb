@@ -1,22 +1,20 @@
 class User
-  @@users = {}
+  attr_reader :name
 
-  attr_accessor :name
-
-  def initialize(name, password)
+  def initialize(name,password)
     @name = name
-    @password = password
-
-    @@users[name] = self
-
-    return self
+    @password = encrypt(password)
   end
 
-  def verify_password(password)
-    @password == password
+  def authenticate(password)
+    @password == encrypt(password)
   end
 
-  def self.find(name)
-    return @@users[name]
+  private
+
+  def encrypt(password)
+    # really shity encrypt
+    password.reverse
   end
 end
+
