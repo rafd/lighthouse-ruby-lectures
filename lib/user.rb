@@ -1,20 +1,20 @@
-def shitty_encrypt(password)
-  password.reverse.chars.map do |c|
-    c+c
-  end.join("")
-end
-
 class User
   attr_reader :name
 
   def initialize(name,password)
     @name = name
-    @password = shitty_encrypt(password)
+    @password = encrypt(password)
   end
 
   def authenticate(password)
-    if @password == shitty_encrypt(password)
-      self
-    end
+    @password == encrypt(password)
+  end
+
+  private
+
+  def encrypt(password)
+    # really shity encrypt
+    password.reverse
   end
 end
+
