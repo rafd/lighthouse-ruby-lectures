@@ -1,0 +1,82 @@
+GET /
+  return HTML with:
+    links to other pages:
+       artists -> GET /artist
+       locations -> GET /location
+    random sculpture link —> GET /sculpture/1234
+    search bar (form) -> GET /search
+    login (form) -> POST /login (with user, password)
+
+GET /search/:query
+  return HTML with:
+    sculpture search results,
+      each with link: -> GET /sculpture/<sculpture-id-here>
+
+GET /artist
+   return HTML with:
+     list of all artist
+       each with link: -> GET /artist/<artist-id-here>
+
+GET /artist/:id
+   return HTML with:
+     info about artist
+     all sculptures for this artist
+        each with link: -> GET /sculpture/<sculpture-id-here>
+
+GET /sculpture/:id
+    return HTML with:
+      info about a specific sculpture
+      link back to artists -> /artist/<artist-id-here>
+      link back to location -> /location/<location-id-here>
+
+GET /locations
+   return HTML with:
+     list of locations
+        each with link: -> GET /location/<location-id-here>
+
+GET /location/:id
+      return HTML with:
+         ifo about a specific location
+         all sculptures for that location
+            each with link: -> GET /sculpture/<sculpture-id-here>
+
+
+
+POST /login
+	check if params[name] and params[:password] are correct
+  SESSION[:id] = <user-id>
+  redirect to "/"
+
+POST /logout
+  SESSION[:id] = nil
+  redirect to "/"
+
+
+—— FOR VIPS ONLY (ie. authorized users) ——
+
+GET “/sculpture/new”
+   returns html with:
+     a form to create a sculpture (will: -> POST “/sculpture” with form params)
+
+POST “/sculpture”
+   if SESSION[:id]…
+     create the sculpture with params
+   else
+     return unauthorized status
+   redirect to the created sculpture (“/sculpture/<id>”)
+
+
+GET “/sculpture/:id/edit”
+   returns html with:
+       a form (populated w/ sculpture data) (will -> POST "/sculpture/<id>" with form params)
+
+POST “/sculpture/:id”
+   if SESSION[:id]…
+     update the sculpture with params
+   else
+     return unauthorized status
+   redirect to the created sculpture (“/sculpture/<id>”)
+
+
++ similar routes for location, artists
+
