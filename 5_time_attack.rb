@@ -6,33 +6,37 @@ def average(arr)
   return sum / arr.length
 end
 
-sum = 0
-count = 0
-errors = []
+TIMES_TO_RUN = 5
 
-while true
-  target_time = rand(2..6)
+def run
+  sum = 0
+  count = 0
+  errors = []
 
-  puts "Hit enter in #{target_time}s"
-  t_0 = Time.now
-  gets
-  t_1 = Time.now
+  TIMES_TO_RUN.times do
+    target_time = rand(2..6)
 
-  delta = t_1 - t_0
-  puts "You took #{delta.round(2)}s"
+    puts "Hit enter in #{target_time}s"
+    t_0 = Time.now
+    gets
+    t_1 = Time.now
 
-  error = (target_time - delta).abs
-  puts "You were off by #{error.round(2)}s"
+    delta = t_1 - t_0
+    puts "You took #{delta.round(2)}s"
 
-  sum += error
-  count += 1
+    error = (target_time - delta).abs
+    puts "You were off by #{error.round(2)}s"
 
-  errors << error
+    sum += error
+    count += 1
 
-  # puts errors.inspect
+    errors << error
 
-  puts "Average Error: #{(sum/count).round(2)}s"
-  puts "Average Error: #{average(errors).round(2)}s"
+    puts "Average Error: #{(sum/count).round(2)}s"
+    puts "Average Error: #{average(errors).round(2)}s"
 
-  puts ""
+    puts ""
+  end
 end
+
+run
