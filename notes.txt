@@ -1,0 +1,133 @@
+associations:
+
+  http://guides.rubyonrails.org/association_basics.html
+
+  has_many :foos
+  has_one :foo
+  belongs_to :foo
+  has_and_belongs_to_many :foos
+
+  belongs_to :foo, dependent :destroy
+
+  has_many :foos, through: :bars
+  has_one :foos, through: :bars
+
+
+  # habtm ex. with Employee table and Company table
+  # AR will assume the join table will be called: companies_employees
+
+  # through:
+  # User *- Rating -* Song
+  # could use HABTM with a songs_users table
+  #    but, not if we wanted to store the value of the rating (ex. 5)
+  #    for that, we create a seperate Rating model
+  #    if we want to access "all songs rated by a user", can use :through
+
+  User
+    has_many :ratings
+    has_many :songs, through: :ratings
+
+  Rating
+    belongs_to :user
+    belongs_to :song
+
+  Song
+    has_many :ratings
+    has_many :users, through: :ratings
+
+  # can do @user.songs
+  # can do @song.users
+
+validations:
+
+  http://guides.rubyonrails.org/active_record_validations.html
+
+  run just before an object is saved to the database, ie:
+    create create!  save save!  update update!
+
+  given a @object.valid? method
+
+  callback methods should be private
+
+  validates :name,
+    uniqueness: true,
+    presence: true,
+    length: { maximum: 3,
+              minimum: 1 }
+
+  validates :age,
+    numericality: { greater_than: 0,
+                    only_integer: true,
+                    less_than_or_equal_to: 8 }
+
+
+
+  custom validations:
+    validates :foo_is_even
+
+    private
+
+    def foo_is_even
+      unless foo % 2 == 0
+        # MUST ADD ERRORS FOR VALIDATION TO FAIL
+        errors.add(:foo, "Foo must be even")
+      end
+    end
+
+  conditional validations:
+    # will run validation only if object.bar is truthy:
+    validates :foo, presence: true, if: :bar
+
+    # will run validation only if object.custom_method? is truthy
+    validates :foo, presence: true, if: :custom_method?
+
+    private
+
+    def custom_method?
+      bar == "baz"
+    end
+
+
+
+callbacks
+
+  http://guides.rubyonrails.org/active_record_callbacks.html
+
+  # callback methods should be private
+
+  class User < ActiveRecord::Base
+
+     before_save :convert_username
+
+     private
+
+     def convert_username
+       name = name.gsub(" ","-")
+     end
+
+   end
+
+   # say that barracks needs to keep track of total units EVER created
+   #    ie. using barracks.units.count wouldn't be sufficient
+
+    class Unit
+      belongs_to :barracks
+      after_create :update_barracks_unit_total
+
+      private
+
+      def update_barracks_unit_total
+        barracks.total_units_ever_created += 1
+        barracks.save
+      end
+    end
+
+
+migrations
+  http://edgeguides.rubyonrails.org/active_record_migrations.html
+
+custom SQL
+  class User
+    def foo
+      find_by_sql("SELECT * FROM users WHERE age > :age", age: 30)
+    end
