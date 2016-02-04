@@ -1,5 +1,5 @@
-homework
-  https://gist.github.com/kvirani/f181960cf019971783fc#file-w1d3-hw-solutions-md
+homework answers
+ https://gist.github.com/rafd/f138e248df032fad74dc
 
 pry
   irb++
