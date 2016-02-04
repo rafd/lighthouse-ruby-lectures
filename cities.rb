@@ -3,16 +3,21 @@ h = [{name: "Canada",
                {name: "Ottawa", pop: 10 }]},
      {name: "US",
       cities: [{name: "Miami", pop: 5000 },
-               {name: "Seattle", pop: 60 }]}]
+               {name: "Seattle", pop: 60 }]},
+     {name: "China",
+      cities: [{name: "Beijing", pop: 8000 },
+               {name: "Shanghai", pop: 6000 }]}]
 
-# want to calculate total population of all cities
+# TASK 1: CALCULATE TOTAL POPULATION OF ALL CITIES
 
 # using map and reduce lets us chain:
 
-total = h.map {|country| country[:cities] }
-  .flatten.map {|city| city[:pop]}
-  .reduce {|total,pop| total + pop }
-puts total
+total = h.map { |country| country[:cities] }
+         .flatten
+         .map { |city| city[:pop] }
+         .reduce { |total, pop| total + pop }
+
+p total
 
 # w/o chaining:
 
@@ -30,27 +35,17 @@ h.each do |country|
 end
 
 
+# TASK 2: return names of cities of countries with total population > 4000
 
+cities = h
+  .map do |country|
+    country[:total_population] = country[:cities].map {|city| city[:pop] }.reduce(:+)
+    country
+  end
+  .select { |country| country[:total_population] > 4000 }
+  .map {|country| country[:cities].map {|city| city[:name]}}
+  .flatten
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+p cities
 
 

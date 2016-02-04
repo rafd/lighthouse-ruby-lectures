@@ -10,11 +10,26 @@ def sum_if(arr)
   sum
 end
 
-a = sum_if([1,2,3,4,5]) do |x|
-  x % 2 == 0
+# alternative implementation:
+#
+def sum_if(arr)
+  # yield is the block
+  arr.select { |x| yield(x) }.reduce(:+)
 end
 
+# now we can sum_if with various blocks, ex:
+
+# sum if even:
+a = sum_if([1,2,3,4,5]) do |i|
+  i % 2 == 0
+end
 puts a
+
+# sum if > 3
+b = sum_if([1,2,3,4,5]) do |i|
+  i > 3
+end
+puts b
 
 
 
