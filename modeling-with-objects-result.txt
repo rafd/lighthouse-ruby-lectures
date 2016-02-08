@@ -1,0 +1,92 @@
+Bank
+  @users
+
+  #grantInterests()
+  #chargeFees()
+
+User
+  @name
+  @password
+  @accounts
+
+  #authenticate(password)
+
+  > Admin
+
+Database
+  #store
+
+Transaction
+  @amount
+  @from
+  @to
+  @date
+  @note
+
+Account
+  @transactions
+
+  #balance()
+  #deposit(amount)
+  #withdraw(amount)
+  #history()
+
+  #depositInterest()
+  #chargeMonthlyFee()
+  #chargeTransactionFee()
+
+  > CreditAccount
+    INTEREST_RATE
+    MONTHLY_FEE
+    SUPPORTS_DEPOSIT
+    SUPPORTS_*
+    #shouldChargeMonthlyFee?
+    #shouldChargeTransactionFee?
+
+  > ChequingAccount
+    INTEREST_RATE
+    MONTHLY_FEE
+    SUPPORTS_DEPOSIT
+    SUPPORTS_*
+    #shouldChargeMonthlyFee?
+    #shouldChargeTransactionFee?
+
+  > SavingsAccount
+    INTEREST_RATE
+    MONTHLY_FEE
+    SUPPORTS_DEPOSIT
+    SUPPORTS_*
+    #shouldChargeMonthlyFee?
+    #shouldChargeTransactionFee?
+
+Interface
+  #login(name,password)
+  #readCommand(text)
+
+  > ATMInterface
+    #deposit(amount,accountNumber)
+    #withdraw(amount,accountNumber)
+    #transfer(amount,fromAccountNumber,toAccountNumber)
+    #send(amount,fromAccountNumber,toFriendNumber)
+    #history(accountNumber)
+
+  > AdminInterface
+    #createCustomer(name,password)
+    #createAccount(userId, accountType)
+
+
+
+
+
+# welcome to simple bank
+# type in your name:
+>
+# type in your password:
+>
+# your accounts and balances are:
+#  chequing account #223     $500
+#  savings account #113      $ 0
+# type in a command
+> deposit $100 #223
+
+

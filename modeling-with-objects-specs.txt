@@ -1,0 +1,79 @@
+Modeling A Simple Banking System With Objects
+
+Specs:
+
+  As a User I want to:
+    login and see my accounts and balances
+    deposit funds
+    withdraw funds
+    transfer funds between accounts
+    send money to a friend
+    see a history of transactions on each account
+
+
+  As a Bank administrator I want to:
+    create login accounts and bank accounts for new customers
+
+    accounts can support various transactions:
+      deposit
+      withdraw
+      transfer
+      send
+
+    provide various kinds of accounts:
+      Chequing
+      Savings
+      Credit
+
+    provide interest
+    provide interest depending on account type
+
+    charge monthly fees
+    charge monthly fees depending on account type
+    charge monthly fees only if a certain monthly balance is met (depending on account type)
+    charge monthly fee based on arbitrary logic (depending on account type)
+
+    charge transaction fees
+    charge transaction fees depending on account type
+    charge transaction fees only if above a certain number (depending on account type)
+
+    limit actions that customers can take on certain accounts
+      Savings:
+        cannot have negative balance
+        no withdraw (must transfer)
+        no send
+      Credit:
+        no deposit
+        no withdraw
+        no send
+        no transfer out
+        (only transfer in)
+        can pay (a new action)
+        can have negative balance
+
+    see a balance of all accounts
+    see transactions of all accounts
+    log all transactions to disk
+
+    optional overdraft-protection option on chequing accounts
+
+
+
+
+
+
+MODELS
+
+
+  User
+
+  Bank
+
+  Transaction
+
+  Account
+
+  Interface
+
+  Database
+

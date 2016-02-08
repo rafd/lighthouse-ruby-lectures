@@ -1,0 +1,161 @@
+WHY OOP?
+  as with most programming language features, it was invented to make programming complex things easier
+
+  general idea:
+    we have things called 'objects'
+    each object can have some variables associated with it
+    each object can have some methods associated with it
+    objects can send messages to each other (ex. to get access to each other's variables, to call each other's methods)
+
+    its useful to have different kinds of objects (each having different variables and methods)
+    things called 'classes' are blueprints for each kind of object, describing the methods and variables that those types of objects should have
+    classes are then used to create objects according to the blueprint
+
+
+  turns out, objects/classes are a pretty useful idea, and so they are often used
+     (but not all languages support objects)
+
+  major benefits of OOP:
+
+    "seperation of concerns"
+      classes/objects let us group related data and actions (methods) together
+      ie. helps with organizing our code
+
+    "abstraction"
+       classes/objects let us create 'higher-level', less-complex representations of oncept, with the complex details hidden away
+       well designed classes let us forget about the details
+
+    "encapsulation"
+      can hides data / methods that shouldn't be available to other parts of the system
+
+      ie. public vs private methods
+
+      seperates problem-related actions from implementation related actions (also related to 'abstraction')
+
+      also indicates to other programmers which methods should be used (vs those that are just details)
+        we say that a public instance methods are an "interface" (not a graphical interface, but a "code" interface), because they are the ways that other parts of the application interact with those objects
+
+
+
+
+objects DO NOT need to correspond to anything 'real'
+
+  often we used real-word physical things (ex. animals) to teach the concept of classes and objects
+
+  but, in practise:
+
+    1. classes will be related to concepts in the problem-domain
+      ex. for banks, you'd have classes: Bank, Account, Person)
+      ex. for a social photo site, you'd have: User, Photo, Album, Like
+      (most of the time these are abstract non-physical things that were made up to make talking/thinking about them easier)
+
+    2. ...and you'll have classes related to the solution-domain (ie. web development)
+         ex. classes: Database, LoginSession, AccountListView (part of an interface)
+
+    3. ...and, you'll create other classes whenever it's useful to have 'cleaner' code (ie. to take advantage of the benefits of OOP as noted earlier)
+
+
+INHERITANCE
+
+  sometimes its useful for a class to be able to 'inherit' the methods and class variables from a different class
+    helps us avoid duplication
+
+  we say that 'the child class inherits from the parent class'
+
+  Ruby Example:
+
+  ex. Cat and Parrot inherit from Animal, all Animals can breathe() and eat() and procreate(); only Parrot can fly()
+
+    class Animal
+      def initialize(weight)
+        @weight = weight
+        @alive = true
+        @energy = 100
+        @food = 100
+      end
+      def breathe
+       # ...
+      end
+      def eat
+       # ...
+      end
+      def procreate
+       # ...
+      end
+    end
+
+    class Parrot < Animal
+
+      def initialize(wingsClipped?)
+        @wingsClipped? = wingsClipped?
+        @flying? = false
+        super(WEIGHT)
+      end
+
+      def fly()
+         if not @flying?
+           @energy -= 10
+           @flying? = true
+         end
+      end
+
+      def land()
+        @flying? = false
+      end
+    end
+
+    class Cat < Animal
+    end
+
+
+   NOTE:
+     super allows you to call the parent class' method without rewriting it (again, another thing to help us avoid copy/paste, ie. duplication)
+     you NEED to pass the same # of parameters that the correspdoning method in the parent class expects
+
+    TRICKY:
+      super(a,b,c)
+      super()  # calls the parent method with 0 arguments
+      super    # (without the brackets) calls the parent method with the SAME arguments as were passed into the current method (!!!)
+      class Parent
+        def initialize(a)
+
+        end
+      end
+
+      class Child < Parent
+        def initialize(a,b,c)
+          # did some stuff
+          super # this would pass a, b, c to the parent initialize
+          super() # this would pass 0 arguments to the parent initialize
+          super(a)
+        end
+      end
+
+      Parent.new(50)
+      Child.new(50, "1", :x)
+
+
+
+EXCEPTIONS
+  you've likely already encountered an error when using Ruby
+    but 'error' is a very general term, when we talk about 'exceptions', we mean:
+      a tool certain languages have to trigger the halting of a program and include some information
+      ie. NOT the general idea of "my program is wrong"
+      we say "my program halted due to a FileNotFound exception"
+
+  we trigger exceptions in our programs on purpose
+    to prevent other code from running when something is really wrong
+    usually used to prevent code from being used improperly by the rest of the application
+
+    ...for user-related issues or bad user-data, ex. a bad password, we don't use exceptions, b/c we don't want the program to halt
+       it's a better user experience to say, "your password was wrong, try again" than "PASSWORD ERROR. PLEASE RESTART APPLICATION"
+
+  most of the time, you will be dealing with potential exceptions that may be triggered by system methods or libraries you are using (which you don't want to be halt your program)
+    ex. you create a calculator, user tries to divide by zero, to avoid Ruby from halting your program due to ZeroDivisionError, you want to 'catch' the error
+
+  more on exceptions in the breakout
+
+
+MODELING WITH OBJECTS
+  see other file
+
