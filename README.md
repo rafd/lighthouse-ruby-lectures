@@ -2,9 +2,10 @@
 
 ## To Run:
 
-`bundle install
-
-`bundle exec ruby app.rb
+```
+bundle install
+bundle exec ruby app.rb
+```
 
 ## Our Plan:
 
