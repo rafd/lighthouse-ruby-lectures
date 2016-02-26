@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%# load jquery library, giving us the $ function %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <title>Live Search Example</title>
+</head>
+<body>
+  <%# create an input field and a #results div to attach search results to %>
+  <input id="search"/>
+  <div id="results"></div>
+
+  <%# here comes our javascript code: %>
+  <script type="text/javascript">
+
+    // after a user presses a key while inside the #search input field, run a function...
+    $("#search").on("keyup", function() {
+
+
+      // get the text from the #search field and store it in 'query'
+      var query =  $("#search").val();
+
+      // if the length of 'query' is > 0...
+      if(query.length > 0) {
+
+        // use the jquery ajax function to make a POST request to /search
+        $.ajax({
+          url: "/search",
+          method: "POST",
+          data: {query: query}
+        })
+
+        // when we get the response, run a function...
+        .done(function(songs) {
+          // songs will be an array of hashes
+          // jquery has already converted it from a JSON string b/c we specified content_type json in our route
+
+          // loop over the songs (an array of hashes)
+          data.forEach(function(song) {
+            // create a div, set it's text and append to #results
+            $("<div>").text(song.title + " by " + song.artist).appendTo($("#results"))
+          });
+        });
+      // if the length of the 'query' is 0...
+      } else {
+        // clear the contents of the results div
+        $("#results").html("")
+      }
+
+    });
+  </script>
+</body>
+</html>
+
