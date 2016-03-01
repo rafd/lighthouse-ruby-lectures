@@ -65,12 +65,18 @@ intro to programming and ruby
       # ...
     end
 
-    while true
-      # ...
+    foo = 10
+    while foo > 0
+      puts foo
+      foo = foo - 1
     end
 
-    [1,2,3].each do |x|
+    [9,10,10].each do |x|
       puts x
+    end
+
+    [9,10,11].each_with_index do |x, ind|
+      puts ind, x
     end
 
     (we'll learn more about lists tomorrow)
