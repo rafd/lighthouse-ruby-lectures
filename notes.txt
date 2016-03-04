@@ -1,0 +1,33 @@
+
+
+# class
+class CarFactory
+
+  # class variable
+  @cars = []
+
+  # class method
+  def self.makeCar
+    @@cars = Car.new
+  end
+
+end
+
+
+
+# instance (of a class)
+car = Car.new
+
+class Car
+  # instance method
+  def drive
+    # instance variable
+    @position += 10
+  end
+
+  # private instance method
+  private
+  def alarm
+
+  end
+end
