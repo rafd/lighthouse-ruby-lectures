@@ -1,20 +1,10 @@
 class User
-  attr_reader :name
+  attr_reader :email
 
-  def initialize(name,password)
-    @name = name
-    @password = encrypt(password)
+  def initialize(email)
+    @email = email
   end
 
-  def authenticate(password)
-    @password == encrypt(password)
-  end
-
-  private
-
-  def encrypt(password)
-    # really shity encrypt
-    password.reverse
-  end
 end
+
 
