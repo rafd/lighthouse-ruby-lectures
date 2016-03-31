@@ -26,6 +26,8 @@ require vs. require_relative
 
 regex groups
 
+  http://rubular.com/ very useful tool
+
   you can extract sub-matches using regex groups  (whenever you use brackets inside a regex)
 
   m = /(\d{3}).?(\d{3}).?(\d{4})/.match("416-123-4567")
