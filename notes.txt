@@ -10,12 +10,18 @@ pry
   binding.pry
 
 
-require_relative
-  used to run code from another file
-  will only load a given file once
-  every file that depends on another should require_relative those files
+require vs. require_relative
 
-  require_relative "../relative/path/to/file"
+  require "a"
+    will look for the file based on *the directory the program is RUN from*
+    only use require for gems
+
+  require_relative "relative/path/to/file"
+    will look for the file based on *the driectory the FILE is in*
+    always use require_relative for files
+
+  (both require and require_relative will only load a file once, even if you require it multiple times -- this is likely to happen when you have many files requiring many other files, etc.)
+  every file that depends on another should require_relative those files
 
 
 regex groups
@@ -31,14 +37,35 @@ regex groups
 
   String#gsub can be passed a block, which has groups defined as $1, $2...
 
-  "123-456-7890".gsub(/(\d{3}).?(\d{3}).?(\d{4})/) do
+  pattern = /(\d{3}).?(\d{3}).?(\d{4})/
+
+  "123-456-7890".gsub(pattern) do
      $2+$1+"XXXX"
    end
 
   #=> "456123XXXX"
 
+  or, even more succinctly:
+
+  "123-456-7890".gsub(pattern, '\2\1XXXX')   # note the single quotes!!!
+
+  #=> "456123XXXX
+
+
+p vs puts
+
+  puts will convert the value into a string
+    makes it hard to tell the difference between "" and [] and nil
+
+  p will convert the value into a string with Ruby-like syntax
+    ex. empty string => "\""\"
+    ex. []  =>  "[]"
+
+  if you want to print a value for debugging purposes, use p
+
 
 enumerables
+
   http://ruby-doc.org/core-2.2.2/Enumerable.html
   Array, Hashes (and other classes) are subclasses of Enumerable
     meaning that they all share the methods defined on Enumerable
@@ -51,17 +78,20 @@ enumerables
     # 2: b
     # 3: c
 
+    # we use each b/c we want the 'sideffects' of the block
+    # note: each returns the original array, which is useless, so we never assign the result of each to anything (but watch out when using it at the end of a function, b/c it WILL return a value!)
+
+  #map - return list with block applied to every item
+    [1,2,3,4].map { |x| x * 2 }
+    # [2,4,6,8]
+
   #find - return first thing where block returns true
-    [1,2,3,4].find do |x| x % 2 == 0 end
+    [1,2,3,4].find { |x| x % 2 == 0 }
     # 2
 
   #select - return list with items where block returns true
-    [1,2,3,4].select do |x| x % 2 == 0 end
+    [1,2,3,4].select { |x| x % 2 == 0 }
     # [2,4]
-
-  #map - return list with block applied to every item
-    [1,2,3,4].map do |x| x * 2 end
-    # [2,4,6,8]
 
   #reduce - block defines how to combine elements into a new object
     very powerful, most other enumerable methods can be implemented w/ reduce
@@ -94,7 +124,7 @@ enumerables
       [5,1,3,6,2].reduce([]) do |memo,x|
         x > 3 ? memo.push(x) : memo
       end
-      # [5,6]
+      # [5, 6]
 
     count occurrences:
       ["a","b","c","d","a","b","a","c"].reduce({}) do |memo,x|
@@ -107,7 +137,7 @@ enumerables
 
 
 blocks
-  seen them used by some methods (ex. #each)
+  we've already seen them used by some methods (ex. #each)
   can make our own methods that take in blocks
     just have to call 'yield()' inside our method
     can only take in one block
@@ -115,5 +145,8 @@ blocks
 
   see blocks.rb for examples
 
-  (ruby also has related things called procs & lambdas, but, sadly, they are rarely used when writing ruby)
+  ruby also has related things called procs & lambdas, but (sadly) they are very rarely used when writing idiomatic Ruby (ie. don't use them)
+    we will see lambdas in javascript though! :)
     http://www.reactive.io/tips/2008/12/21/understanding-ruby-blocks-procs-and-lambdas/
+
+
