@@ -1,0 +1,53 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="autocomplete"></div>
+
+  <script type="text/javascript">
+    $.ajax({url:"/cities"}).done(function(data) {
+      cities = data;
+
+
+    $autocomplete = $("#autocomplete")
+    $input = $("<input>").attr("placeholder","Search")
+
+    $cities = $("<div>").addClass("cities")
+
+    var clearCities = function(cities) {
+      $cities.empty();
+    }
+
+    var showCities = function(cities) {
+      clearCities();
+      cities.sort().forEach(function(city) {
+        $("<div>").addClass("city").text(city).appendTo($cities).on("click",function(e) {
+          $input.val(city);
+          clearCities();
+        });
+      });
+    }
+
+    $cities.on("mouseover",".city",function(e) {
+      $(e.target).css("color","red");
+    });
+
+    showCities(cities);
+
+    $input.on("keyup", function(e){
+      var query = $input.val()
+      var filteredCities = cities.filter(function(city) {
+        return city.toLowerCase().indexOf(query.toLowerCase()) != -1
+      });
+      showCities(filteredCities);
+    });
+
+    $autocomplete
+      .append($input)
+      .append($cities)
+
+    });
+  </script>
+</body>
+</html>
