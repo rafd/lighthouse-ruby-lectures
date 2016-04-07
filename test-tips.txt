@@ -1,0 +1,4 @@
+ - briefly scan over the entire test to see what is expected and to identify potentially easy questions near the end
+ - if stuck, think differently (it's likely that that you think is causing the problem is not what is actually causing the problem)
+ - if stuck, move on (sometimes parts of the test depend on each other, but often not)
+ - rerun all the tests at the end
