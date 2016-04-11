@@ -14,3 +14,4 @@ TURN HEADERS ON:
   .headers on
 
 
+you can copy/paste queries from queries.sql
