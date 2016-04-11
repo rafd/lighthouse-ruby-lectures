@@ -1,8 +1,8 @@
-DROP TABLE artists;
-DROP TABLE albums;
-DROP TABLE tracks;
-DROP TABLE tags;
-DROP TABLE artists_tags;
+-- DROP TABLE artists;
+-- DROP TABLE albums;
+-- DROP TABLE tracks;
+-- DROP TABLE tags;
+-- DROP TABLE artists_tags;
 
 CREATE TABLE artists (
   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -138,7 +138,6 @@ INSERT INTO "tracks" (title, number, album_id) VALUES ("Burnin'", 13, 6);
 INSERT INTO "tracks" (title, number, album_id) VALUES ("Indo Silver Club", 14, 6);
 INSERT INTO "tracks" (title, number, album_id) VALUES ("Alive", 15, 6);
 INSERT INTO "tracks" (title, number, album_id) VALUES ("Funk Ad", 16, 6);
-INSERT INTO "tracks" (title, number, album_id) VALUES ("", 17, 6);
 
 INSERT INTO "albums" (id, title, year, artist_id) VALUES (7, "Human After All", 2005, 4);
 

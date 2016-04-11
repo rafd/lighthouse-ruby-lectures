@@ -1,4 +1,4 @@
-Why? Overview
+Why?
 
   Why databases?
     organized way to store and manage data
@@ -79,6 +79,9 @@ advanced queries:
     can have left/right inner/outer
       http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html
 
+  groups
+    GROUP BY
+
   aggregates
     SUM
     AVG
@@ -90,15 +93,14 @@ advanced queries:
 
     https://www.sqlite.org/lang_aggfunc.html
 
-  groups
-    GROUP BY
+    ** if you are using an aggregate, you probably need a GROUP BY **
 
 
 Schema Design
   Normalization
   Entity Relationship Diagrams
   Relationships
-    1-1
-    1-*
-    *-*
+    1-1  (one to one)
+    1-*  (one to many)
+    *-*  (many to many)
 
