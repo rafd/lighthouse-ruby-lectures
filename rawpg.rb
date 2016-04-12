@@ -7,6 +7,7 @@ conn = PG.connect(
 
 conn.exec('SELECT * FROM countries;') do |results|
   results.each do |country|
-    puts country.inspect
+    p country
   end
 end
+
