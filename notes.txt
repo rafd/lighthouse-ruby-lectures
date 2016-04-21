@@ -1,0 +1,55 @@
+algorithmic complexity
+
+SEARCH (given sorted list of length n, find x)
+ - naive O(n)
+ - binary O(logn)
+
+complexity
+ - typically concerned w/ time & memory as functions of input length
+ - worst, best, average case
+ - "big O"
+    - worst case at large N
+    - can ignore all terms but the 'highest order'
+    - order: c root(n)  logn nlogn n^2 n^3 c^n n!
+
+SORT (given unsorted list of length n, sort it)
+ - naive O(n^2)
+ - merge sort O(nlogn)
+   - merge sort is an example of divide and conquer
+ - animations: http://www.sorting-algorithms.com/
+ - nlogn is best we can do for 'comparison' sorts
+ - other sorts (bucket, radix) can do better if we know something about the data
+
+divide & conquer
+ - a useful approach in solving many problems
+ - approach:
+    1. split problem into pieces (usually half) and call our function on the halves
+    2. need to handle base case
+    3. need to handle 'merging'
+ - ex. binary search, merge sort
+
+ FIBONACCI
+  - recursive, naive O(2^n)
+  - recursive, memoized O(n)
+  - closed form solution O(c)
+
+complexity classes
+  P - solvable in poly time
+  NP - provable in poly time
+
+  provable and solveable are different problems
+    ex. comparison sort is nlogn, proving it is n
+  it's and open question whether P=NP (ie. if a problem is proveable in poly time, does it mean there is a solution to it in poly time)
+
+
+problems where algorithms are useful
+  spatial indexing (what object did I click?, what objects collided?)
+  matrix multiplication
+  shortest route
+
+parallelization is another (more recent) concern of algorithms
+  (ie. b/c we have GPUs and multi-core CPUs, a higher order solution may be better if it can be parallelized)
+
+
+interested in more?
+  https://en.wikipedia.org/wiki/Introduction_to_Algorithms
