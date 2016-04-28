@@ -54,6 +54,9 @@ regex groups
   #=> "456123XXXX
 
 
+  also, "string".scan(/someregex/) can be useful
+
+
 p vs puts
 
   puts will convert the value into a string

@@ -1,5 +1,7 @@
+# gem install pry
+# gem install pry-byebug
+
 require 'pry'
-require 'byebug'
 
 def square(x)
   puts "inside square"
