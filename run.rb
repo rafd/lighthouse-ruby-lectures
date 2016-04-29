@@ -1,27 +1,16 @@
 require "pry"
-require_relative 'bank_account'
+require_relative 'lib/savings_account'
+require_relative 'lib/chequing_account'
+require_relative 'lib/tfsa'
 
-# ask BankAccount class to create an instace of BankAccount
-some_account = BankAccount.new(5000,50)
+sa1 = SavingsAccount.new(5000)
+p sa1.balance
+sa1.deposit(123)
+p sa1.balance
 
-p some_account.balance
+sa1.withdraw(100)
+p sa1.balance
 
-some_account.deposit(123)
-p some_account.balance
-
-some_account.withdraw(100)
-p some_account.balance
-
-
-t = TFSA.new(5000)
-
-
-bob = Membership.new("Bob","1234")
-
-bob.changePIN("1263")
-
-bob.pin = "1234"
-
-
+p SavingsAccount::INTEREST_RATE
 
 binding.pry
