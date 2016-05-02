@@ -57,22 +57,49 @@ FIRST ORDER FUNCTIONS
   square // the function object
   square(6) // calling the function
 
+
+  var hello = function() {
+    console.log("hello");
+  }
+
+  hello    //<- reference to the function
+  hello()  //<- calling/running the function
+
+
+
   no implicit returns (must use return, or else it returns nil)
   can have anonymous functions
-    function(foo) { .... }
+    (function(foo) { console.log(x) })(x)
 
   you can pass functions to functions
 
   often you see anonymous functions passed to functions (like blocks in ruby)
 
-  var each = function(arr, iter) {
-    for(var i = 0; i < a.length; i++) {
-      iter(a[i]);
+  var each = function(arr, xfn) {
+    for(var i = 0; i < arr.length; i++) {
+      xfn(arr[i]);
     }
   }
+
   each([1,2,3,4], function(x) {
     console.log(x);
   });
+
+
+  # ruby equivalent:
+
+  def each(arr)
+    for(i = 0; i < arr.length; i+= 1) do
+      yield(arr[i])
+    end
+  end
+
+  each([1,2,3,4]) do |x|
+    puts x
+  end
+
+
+
 
 
 EVENTS AND ASYNCHRONICITY
@@ -83,6 +110,9 @@ EVENTS AND ASYNCHRONICITY
     console.log("clicked!")
   });
   console.log("other stuff")
+
+
+
 
   the console.log("clicked!") above only gets called when a click happens
   the console.log("other stuff") gets printed immediately
@@ -105,6 +135,26 @@ EVENTS AND ASYNCHRONICITY
   the pattern above is very common:
     some-async-func(data, callback-function, timeout)
 
+
+  you will this pattern a lot in js, and in node, ex, for accessing files
+  (note: readFile in the example below is not a real function)
+
+  // in ruby, we would do this:
+
+  foo_data = readFile("foo.txt")
+  use(foo_data)
+  bar_data = readFile("bar.txt")
+  use(bar_data)
+
+  // in js, we do this:
+
+  readFile("foo.txt", function(foo_data) {
+     use(foo_data)
+     readFile("bar.txt", function(bar_data) {
+       use(bar_data)
+     })
+  })
+
 SCOPE
 
   by default, every variable is global, unless you use var
@@ -112,18 +162,23 @@ SCOPE
   functions create new scopes, can access variables in parent scopes
 
   var a = 1;
+  // a == 1
+  a = 3;
+  // a == 3
   var a = 2;
   // a == 2
   var f = function() {
     // a == 2
-    var a = 3;
-    // a == 3
+    a = 9
+    // a == 9
+    var a = 5;
+    // a == 5
     var b = 4;
-    c = 3;
     // b == 4
+    c = 3;
     // c == 3
   }
-  // a == 2
+  // a == 9
   // b == undefined
   // c == 3
 
@@ -138,9 +193,11 @@ CLOSURES
       console.log(a);
     }
   }
+
   g = f(10);
   g();
   g();
+
   h = f(100);
   h();
   h();
@@ -157,7 +214,7 @@ HASHES / MAPS == OBJECTS
 
   var contact = {
     first_name: "John",
-    last_name: Smith",
+    last_name: "Smith",
     email: 'john.smith@gmail.com',
     fullName: function() {
       return this.first_name + ' ' + this.last_name;

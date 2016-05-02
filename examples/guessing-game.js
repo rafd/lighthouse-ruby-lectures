@@ -1,18 +1,22 @@
 var GuessingGame = {
+  number: null,
+  guess: null,
   start: function() {
-    var number = prompt("Please enter a number:");
-    console.log(number);
-    GuessingGame.checkGuess(number);
+    this.generateRand();
+    this.guess = parseInt(prompt("Please enter a number:"),10);
+    console.log(this.guess);
+    this.checkGuess();
   },
   generateRand: function() {
-    return Math.floor(Math.random() * 10);
+    this.number = Math.floor(Math.random() * 10);
+    console.log(this.number);
   },
-  checkGuess: function(guess) {
-    if (guess == GuessingGame.generateRand()) {
+  checkGuess: function() {
+    if (this.guess === this.number) {
       console.log("Yay!");
       alert("You were correct!");
     } else {
-      console.log("Boo");
+      console.log("Boo!");
       alert("WRONG AGAIN");
     }
   }
