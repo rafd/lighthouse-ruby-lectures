@@ -6,7 +6,7 @@ class Country
 
   @@conn = PG.connect(
     host: 'localhost',
-    dbname: 'w3d2lectureMar28'
+    dbname: 'w3d2lecture'
   )
 
   def initialize(name,population,capital,area,id=nil)
@@ -16,7 +16,6 @@ class Country
     @area = area
     @id = id
   end
-
 
   def self.find(id)
     results = @@conn.exec_params('SELECT * from countries WHERE id=$1',[id])
@@ -39,9 +38,9 @@ class Country
 
   def save
     if saved?
-      update()
+      update
     else
-      insert()
+      insert
     end
   end
 
@@ -51,15 +50,14 @@ class Country
     # DO NOT DIRECTLY INTERPOLATE SQL QUERIES
     # THIS IS A MAJOR SECURITY HOLE
     # YOU MUSE USE exec_params
-    # @@conn.exec("INSERT INTO countries (name, population, capital, area) VALUES #{self.name}, #{self.population}, #{self.capital}, #{self.area}")
 
-    @@conn.exec_params("INSERT INTO countries (name, population, capital, area) VALUES ($1, $2, $3, $4) RETURNING id", [self.name, self.population, self.capital, self.area]) do |results|
+    @@conn.exec_params("INSERT INTO countries (name, population, capital, area) VALUES ($1, $2, $3, $4) RETURNING id", [name, population, capital, area]) do |results|
       @id = results[0]["id"]
     end
   end
 
   def update
-    @@conn.exec_params("UPDATE countries SET name=$1, population=$2, capital=$3, area=$4 WHERE id=$5;", [self.name, self.population, self.capital, self.area, self.id])
+    @@conn.exec_params("UPDATE countries SET name=$1, population=$2, capital=$3, area=$4 WHERE id=$5;", [name, population, capital, area, id])
   end
 
   def self.new_from_row(c)
