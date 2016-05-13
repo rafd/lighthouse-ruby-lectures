@@ -21,20 +21,23 @@
 
 ## aggregates
 
-  `COUNT`, `AVG`, `MAX`, `MIN`, `SUM`:
+  `COUNT`, `AVG`, `MAX`, `MIN`, `SUM`
 
   `GROUP BY`
-    if you're using an aggregate, you should have a `GROUP BY`
+  
+  if you're using an aggregate, you should have a `GROUP BY`
 
   `HAVING`
-    similar to `WHERE`, but for aggregates
+  
+  similar to `WHERE`, but for aggregates
     
-    ```
-    ... COUNT(likes.ids) AS num_likes
-    ...
-    HAVING num_likes > 0
-    ...
-    ```
+  ```
+  ...
+  COUNT(likes.ids) AS num_likes
+  ...
+  HAVING num_likes > 0
+  ...
+  ```
 
 
 
@@ -53,8 +56,8 @@
 
 
   *TIP!*
-    can destroy dependents easily:
-      `has_many :students, dependent: :destroy`
+  if you need to destroy related objects when the parent is destroyed, you can do:
+    `has_many :students, dependent: :destroy`
 
 
 ## validations
@@ -82,21 +85,21 @@
   ```
 
   *TIP!*
-     you should check if a variable exists before calling methods on it
+  you should check if a variable exists before calling methods on it
 
   *!!!*
-     the first argument to errors.add must match what what the test expects
+  the first argument to errors.add must match what what the test expects
 
   *!!!*
-     the error message must match what exactly the test expects
+  the error message must match what exactly the test expects
 
   *!!!*
-     :attr_is_even should be a private method
+  `:attr_is_even` should be a private method
 
   *!!!*
-    name of custom validation should be what you're making sure is true
-      yes:  `validate :correct_state`
-      no:   `validate :incorrect_state`
+  name of custom validation should be what you're making sure is true
+    yes:  `validate :correct_state`
+    no:   `validate :incorrect_state`
 
 
 ## sql queries
@@ -110,25 +113,25 @@
   `after_save :do_something`
 
   *!!!*
-    :do_something should be a private method
+  `:do_something` should be a private method
 
   *!!!*
-    if a before_save callback returns false, it will prevent the save
+  if a `before_save` callback returns `false`, it will prevent the save
 
   *TIP!*
-    you can check for a 'dirty' attribute (attr that has changed but not saved):
-        name_changed?
+  you can check for a 'dirty' attribute (attr that has changed but not saved):
+    `name_changed?`
 
   *TIP!*
-     you can have a custom callback call methods on related objects
+  you can have a custom callback call methods on related objects
+  
+  ```
+  def custom_callback
+    self.related_thing.some_method
+  end
+  ```
 
-     ```
-     def custom_callback
-       self.related_thing.some_method
-     end
-     ```
-
-     (`self` is optional in the example above)
+  (`self` is optional in the example above)
 
 
 
