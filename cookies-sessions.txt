@@ -26,4 +26,13 @@ sessions:
   ex. getting (in another request)
     session[:foo]
   ex. clearing
-    session[:foo] = nil
+    session.clear
+
+still not sufficient to be secure,
+  need to ALSO use SSL (https) in production servers
+  so that all communications between browser<->server are encrypted
+  otherwise:
+    1) login usernames / passwords sent in plain text, can be read by anycomputer between browser<-> (wifi router, network provider, Rogers, NSA, etc.)
+    2) b/c sessions are also text, they can be stolen by any computer along the path and used to login as someone
+
+    these aren't "fairy-tale" problems, there have been real-world cases that have taken advantage of this
