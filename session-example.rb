@@ -1,11 +1,14 @@
-class User
+require "sinatra"
+require "active_record"
+
+class User < ActiveRecord::Base
   # http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
   has_secure_password
 
   has_many :posts
 end
 
-class Post
+class Post < ActiveRecord::Base
   belongs_to :user
 end
 
@@ -18,27 +21,41 @@ helpers do
 end
 
 get "/" do
-   if @user = current_user
-     @posts = @user.posts
-     erb :posts
-   else
-     erb :login
-   end
+  @user = current_user
+  erb :index
+end
+
+post "/register" do
+  @user = User.find_by_email(params[:email])
+  if @user
+    @error = "Email already exists"
+    erb :index
+  else
+    @user = User.create(email: params[:email], password: params[:password])
+    redirect "/"
+  end
 end
 
 post "/login" do
-   if @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
-     session[:id] = @user.id
-     redirect "/"
-   else
-     @error = "Wrong email/password"
-     redirect "/login"
-   end
+  @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
+  if @user
+    session[:id] = @user.id
+    redirect "/"
+  else
+    @error = "Wrong email/password"
+    erb :index
+  end
 end
 
 post "/logout" do
-  session.delete(:id)
-  # or session.clear
+  session.clear
+  redirect "/"
 end
+
+
+
+
+
+
 
 
