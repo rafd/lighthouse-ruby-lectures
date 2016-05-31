@@ -24,7 +24,7 @@ Levels of Testing
 TDD: Test Driven Development
  - more than just "write tests first", it's a process of building applications
  - process:
-      - write test (red)
+      - write one test (red)
       - do minimum to make test pass (green)
       - *commit*
       - refactor
