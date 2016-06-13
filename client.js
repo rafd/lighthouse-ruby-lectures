@@ -6,7 +6,7 @@ var chat = {
   _init: function(name) {
     chat._name = name;
     chat._showChat();
-    chat._connection = new WebSocket("ws://127.0.0.1:4000");
+    chat._connection = new WebSocket("ws://localhost:4000");
 
     if (chat._connection) {
 
