@@ -108,7 +108,7 @@
 
   `$el.on("blur" , function() { ... })`
 
-### styling elements
+## styling elements
 
 ### directly:
 
