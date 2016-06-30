@@ -46,7 +46,8 @@
 
     `transition: all 1s ease-in-out;`
 
-    http://www.w3schools.com/css/css3_transitions.asp
+  http://www.w3schools.com/css/css3_transitions.asp
+  http://easings.net/
 
 ## transformations:
 
