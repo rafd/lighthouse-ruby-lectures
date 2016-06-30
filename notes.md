@@ -44,18 +44,18 @@
 
 ## transitions:
 
-    `transition: all 1s ease-in-out;`
+  `transition: all 1s ease-in-out;`
 
   http://www.w3schools.com/css/css3_transitions.asp
   http://easings.net/
 
 ## transformations:
 
-     `transform: translate(400px, 200px);`
+   `transform: translate(400px, 200px);`
 
-     (can be transitioned)
+   (can be transitioned)
 
-     http://www.w3schools.com/css/css3_2dtransforms.asp
+   http://www.w3schools.com/css/css3_2dtransforms.asp
 
 ## flex-box:
   very powerful layout mode:
