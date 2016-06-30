@@ -86,80 +86,80 @@
 
 # jQuery
 
-   selecting elements:
+## selecting elements:
 
-     `$("some #css .selector")`
+  `$("some #css .selector")`
 
-   creating elements:
+## creating elements:
 
-       `$("<p>")`
+   `$("<p>")`
 
-   "storing" elements:
+## "storing" elements:
 
-     use convention of $name for variables that will be elements
-     `$foo = $("<p>")`
+  use convention of $name for variables that will be elements
 
-   handling events:
+  `$foo = $("<p>")`
 
-     `$el.on("click", function() { ... })`
+## handling events:
 
-     `$el.on("focus", function() { ... })`
+  `$el.on("click", function() { ... })`
 
-     `$el.on("blur" , function() { ... })`
+  `$el.on("focus", function() { ... })`
 
-   styling elements directly:
+  `$el.on("blur" , function() { ... })`
 
-     `$el.css("color","red")`
+### styling elements
 
-     `$el.css({color: "red", background: "green"})`
+### directly:
 
-     http://api.jquery.com/css/
+  `$el.css("color","red")`
 
-   styling elements via css defined elsewhere (preferred):
+  `$el.css({color: "red", background: "green"})`
 
-     `$el.addClass("active")`
+  http://api.jquery.com/css/
 
-     `$el.removeClass("active")`
+### via css defined elsewhere (preferred):
 
-   chaining:
+  `$el.addClass("active")`
 
-      `$("<p>").text(someVar).css("color","green").addClass("blah")`
+  `$el.removeClass("active")`
 
-      Don't do:
+## chaining:
 
-        `$("<p style='color:green'>"+someVar+"</p>")`
+  `$("<p>").text(someVar).css("color","green").addClass("blah")`
 
-   animations:
+  Don't do: `$("<p style='color:green'>"+someVar+"</p>")`
 
-      `$el.animate({ width: "50%"}, 1000)`
+## animations:
 
-   queues:
+  `$el.animate({ width: "50%"}, 1000)`
 
-      all animation effects create 'queues' (ex. `animate()`, `slideUp()`, `fadeOut()`, `delay()` )
+## queues:
 
-      can chain them together
+  all animation effects create 'queues' (ex. `animate()`, `slideUp()`, `fadeOut()`, `delay()` )
 
-      `$el.slideUp(500).delay(500).slideDown(500)`
+  can chain them together
 
-      most functions don't know about animations (ex. addClass), and must be wrapped in a `queue()`
+  `$el.slideUp(500).delay(500).slideDown(500)`
 
-      (if you use `.queue()` you must remember to `dequeue()` inside of it )
+  most functions don't know about animations (ex. addClass), and must be wrapped in a `queue()`
 
-      ex.
-        ```
-        $el.animate()
-          .delay(500)
-          .queue(function() {
-            $el.addClass("open");
-            $(this).dequeue();
-          })
-          .delay(500)
-          .queue(function() {
-            $el.addClass("close");
-            $(this).dequeue();
-          })
-        ```
+  (if you use `.queue()` you must remember to `dequeue()` inside of it )
 
-      https://api.jquery.com/animate/
+  ```
+  $el.animate()
+    .delay(500)
+    .queue(function() {
+      $el.addClass("open");
+      $(this).dequeue();
+    })
+    .delay(500)
+    .queue(function() {
+      $el.addClass("close");
+      $(this).dequeue();
+    })
+  ```
 
-      https://api.jquery.com/delay/
+  https://api.jquery.com/animate/
+
+  https://api.jquery.com/delay/
