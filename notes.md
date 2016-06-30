@@ -83,6 +83,17 @@
   very powerful layout mode:
 
   https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+  http://flexboxfroggy.com/
+
+## other CSS resources:
+
+https://developer.mozilla.org/en-US/docs/Web/Guide/CSS
+
+http://2zpt4dwruy922flhqyznip50.wpengine.netdna-cdn.com/wp-content/uploads/2015/10/css3-mega-cheat-sheet.jpg
+
+http://learnlayout.com/
+
+http://learn.shayhowe.com/html-css/
 
 # jQuery
 
