@@ -2,19 +2,19 @@
 
 ## selectors:
 
-  `element`
-  `#id`
-  `.class`
+  - `element`
+  - `#id`
+  - `.class`
 
-  ` `  (ancestry) (blank space)
-  `>` (direct child)
-  `+` (adjacent)
-  `~` (precedence)
+  - ` `  (ancestry) (blank space)
+  - `>` (direct child)
+  - `+` (adjacent)
+  - `~` (precedence)
 
-  `foo[attr=value]`  (also: `~=`, `|=`, `^=`, `$=`, `*=`)
+  - `foo[attr=value]`  (also: `~=`, `|=`, `^=`, `$=`, `*=`)
 
-  http://www.w3schools.com/cssref/css_selectors.asp
-  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors
+  - http://www.w3schools.com/cssref/css_selectors.asp
+  - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors
 
 ## pseudo classes and objects:
 
