@@ -42,7 +42,6 @@ ex. chat app, email client, game, screen-share
     - client/server
       - client knows of one server
       - server manages receive/sending messages between many clients
-      -
 
 ```
          <-> CLIENT
