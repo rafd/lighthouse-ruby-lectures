@@ -42,11 +42,13 @@ ex. chat app, email client, game, screen-share
     - client/server
       - client knows of one server
       - server manages receive/sending messages between many clients
-      - ```
-               <-> CLIENT
-        SERVER <-> CLIENT
-               <-> CLIENT
-        ```
+      -
+
+```
+         <-> CLIENT
+  SERVER <-> CLIENT
+         <-> CLIENT
+```
 
   - benefits over polling/long-polling with ajax:
 
