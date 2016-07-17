@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <title>Live Search Example</title>
+</head>
+<body>
+  <input id="search"/>
+  <div id="results"></div>
+
+  <script type="text/javascript">
+  $("#search").on("keyup", function() {
+      var query =  $("#search").val();
+
+      if(query.length > 0) {
+        $.ajax({
+          url: "/search",
+          method: "POST",
+          data: {query: query}
+        }).done(function(data) {
+          $("#results").html("")
+          data.forEach(function(song) {
+            $("<div>").text(song.title + " by " + song.artist).appendTo($("#results"))
+          });
+        });
+      } else {
+        $("#results").html("")
+      }
+  });
+  </script>
+</body>
+</html>
+
