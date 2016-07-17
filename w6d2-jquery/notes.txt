@@ -1,0 +1,24 @@
+- why jquery is used:
+  - query and manipulate the DOM
+  - handle events
+  - animations
+  - ajax
+  - ... all in a standard way across all browsers
+
+- using jquery:
+  - including jquery on your page
+  - retrieving elements using CSS-like selectors
+  - chaining
+  - removing, adding, creating elements
+  - listening to events
+  - event bubbling
+
+- jquery ajax:
+  - create a json api with sinatra
+    - require 'json'
+    - [1,2,3].to_json
+    - content_type :json
+  - use jquery's $.ajax() to issue GET requests
+
+- mentioned mustache.js (templating)
+- mentioned underscore.js (js utility library)
