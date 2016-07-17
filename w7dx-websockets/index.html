@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Room</title>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="client.js"></script>
+  <style>
+    #messages {
+      height: 200px;
+      width: 100%;
+      background-color: lightgray;
+      overflow: auto;
+    }
+    .message .sender {
+      font-weight: bold;
+      margin-right: 1em;
+    }
+    .pointer {
+      width: 6px;
+      height: 6px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+      margin-left: -3px;
+      margin-top: -3px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <form id="login">
+    <input type="text" id="name" placeholder="Name" />
+    <button>Join</button>
+  </form>
+  <div id="chat" style="display:none">
+    <div id="messages">
+    </div>
+    <form id="composer">
+      <input type="text" id="message" placeholder= "Message" />
+      <button>Send</button>
+    </form>
+  </div>
+</body>
+</html>
