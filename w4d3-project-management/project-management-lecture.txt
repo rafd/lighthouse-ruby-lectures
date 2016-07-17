@@ -1,0 +1,208 @@
+
+[ ] Agree on GOALS
+
+    - actually go through the exercise (identify what you want alone & then share)
+    - will impact your decisions
+
+    "I want to..."
+        get better at working together (take time to get process right)
+          vs.
+        get better at *my* coding
+
+        learn something new
+          vs.
+        get better at what I know (stick w/ ruby or js)
+
+        learn <new technology>
+        get better at <technology ex. CSS, HTML>
+
+        build something useful (focus on problem)
+          vs.
+        build something technically 'impressive'/difficult (focus on tech, stack)
+
+        build more features (what's code debt?)
+          vs.
+        build things proper (time for refactoring, code reviews, tests)
+
+
+[ ] Agree on CONCEPT
+
+  - brainstorm:
+      1. split up to generate ideas
+      2. come back together to share (no judging)
+      3. discuss
+      4. repeat as necessary
+
+
+
+### Interregnum: Beware Planning
+
+  - you will start off planning / designing / deciding together
+  - later, you will be working independently
+  - goal is to all understand the purpose and a rough plan
+  - don't need to plan out everything... the details will be clearer when you start working
+
+  - "waterfall"
+     - everything is 'specced out' at the beginning before any coding is done
+        - requirements: ending up w/ a requirements doc
+        - analysis: models, schema, business rules
+        - design: architecture
+        - coding
+        - testing
+        - operations: deploy to production, upkeep
+     - issue: you can't foresee everything
+  - "agile"
+    - Agile ("capital A agile") has lots of its own rules
+    - in general:
+      - go through the 'waterfall' cycle repeatedly
+        (some time on requirements and analysis needed at the beginning)
+      - always have a working artefact (ideally, tested and deployed to production)
+      - keep re-priotizing every once in a while
+
+
+
+[ ] Create Rough MOCKUPS
+
+  - sketch user experience throughout the app
+  - goal: clarify to entire group what the app does
+  - rough sketches fine, don't need to cover all features
+  - tools:
+      paper
+      moqups.com
+
+
+
+[ ] Agree on STACK (and architecture and tools)
+
+  - your goals + your concept will have huge influence here
+  - STACK
+    - DB: postgres, mongodb, sqlite, other (localdb, firebase, rethink, etc)?
+    - Server: sinatra, rails, node+express, other?
+    - JS: jquery, angular, ember, react, backbone, meteor
+    - Other Tooling:
+      - APIs
+      - Scaffolding Tools
+      - Test Tools
+
+
+[ ] Discuss rough MODELS & APIs
+
+  - concept + mockups should already suggest a rough schema
+  - don't need to think of everything (can always do a migration to add a column)
+
+
+
+[ ] Write USER STORIES (and features)
+
+  - writing features as 'stories' helps w/ clarity, context, lumping things together
+  - https://medium.com/@jonatisokon/a-framework-for-user-stories-bc3dc323eca9
+  - at this stage, focus on 'need-to-have' stories, 'nice-to-have' features don't have to be as fleshed out
+
+ - trello.com
+
+
+[ ] Prioritize STORIES (and features)
+
+  - there should always be something working & ready to show
+  - identify the CORE experience
+  - need to have vs. nice to have
+  - some tasks clearly depend on others
+  - think: if we only had 48 hours, what would we do; then, after 48 hours, repeat
+
+
+
+[ ] Agree on WORKFLOW
+
+  Division of Labor
+    strength/role based (ie. front-end, back-end) (less merge conflicts, more talking, more waiting)
+      vs
+    featured based (ie. end-to-end, each feature)
+
+  Testing?
+    agree on a 'standard':
+      0 no testing at all
+      1 just the core user experience (client-side tests)
+          "happy path"
+          capybara -> /features
+          //ignore for now: phantomjs, slimerjs + js test suite
+      2 "if it worked, but now it's broken, write a test"
+      3 Interfaces (Classes, Methods)
+      4 TDD
+
+  Task Flow
+    kanban
+      backlog
+        unpriotized (or, roughly: need to have, nice to have)
+      next-up
+        tasks for next milestone, in order of priority
+        can call 'dibs' by assigning yourself (but, only if absolutely necessary)
+      doing
+        remember to move it!
+        assign yourself to it
+        only one task per person at a time
+      done
+    tools:
+      trello.com
+      asana.com
+
+  Git Flow
+    many workflows for git
+    recommend: "github flow":
+      master = stable, don't work off master
+      feature branches
+        commits can be broken
+        git config --global merge.ff false
+      merging back
+        commit
+        checkout master, pull latest
+        checkout your-branch, merge master
+        deal with conflicts
+        test (even if no conflicts)
+        merge into master
+        push
+      pull frequently, push frequently
+        the longer you're away from master, the more pain when it's time to merge
+
+    decide: pull requests (+ code reviews), or no?
+
+
+  Communication
+    git log
+      stay up to date by reading the log
+    trello
+      keep conversations in context of tasks/features
+    pair coding
+      driver and navigator; switch often
+      great for debugging, sharing knowledge, complex tasks
+    stand-ups
+      goal: identify what's keeping people blocked up
+        (trello is there for who-did-what)
+    chat
+      if it can go on trello, go there first
+    in-person
+      careful of 'breaking flow/focus'
+
+  Deployment?
+    more details tomorrow
+
+    ideal:
+      git push origin master
+      (continous deployment, continous integration -- codeship)
+      -> automated tests
+      -> automated deploy
+
+
+
+[ ] Set up the CODE BASE
+    - as a group
+    - from init to deploy (w/ tests if applicable)
+
+
+
+
+[ ] ...
+
+
+
+
+[ ] DEMO!
