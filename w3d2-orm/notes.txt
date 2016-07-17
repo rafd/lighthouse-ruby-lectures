@@ -1,0 +1,67 @@
+summary:
+  postgres == the database
+  SQL == a popular language used to query relational databases (postgres understands it)
+  psql == a program that lets you run queries on a postgres database using SQL
+  pg == the ruby gem (library) that lets you run SQL queries on a database
+  ORM == the practice of creating classes so that they 'abstract' the database (the rest of the application doesn't need to know about it)
+
+  active record == one way of implementing the ORM concept, your classes and objects know about the database
+                == ALSO, a popular ruby library (which you will start using tomorrow)
+
+  data mapper   == another way of implementing the ORM concept, extra classes are used that know about the database
+
+
+the problem:
+  we want to use a database with our program, but want to keep things object-oriented
+  we want to keep working with classes, objects (and not with whatever way the db returns things)
+  we want to keep the database concerns seperate (the rest of the application shouldn't know that the Country class persists to a postgres database)
+
+the solution:
+  ORM - object relational mapping - a way to convert between objects in your language and data in your database
+
+  relational databases (ex. postgres) are a decent match to how we use objects:
+     Classes    : Tables
+     Instances  : Rows
+     Accessors  : Columns
+
+    * not a perfect match, but pretty good
+      for why it's not perfect, ie. a 'leaky abstraction', read:
+        https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch
+
+  there are 2 popular ORM patterns:
+
+    ActiveRecord
+
+      the class we want to persists knows about the database (ex. Contact)
+        class knows how to retrieve records (ex. Contact.all, Contact.find(...) )
+        instances know how to create, update, delete themselves (ex. c.save, c.delete)
+
+          countries = Country.all    # fetch all countries from the database
+          country = Country.find(5)   # fetch country w/ id=5
+          country = Country.find_by_name("Canada")    # fetch country with name=Canada
+          country.name = "Kanada"     # change name (only in Ruby)
+          country.save                # update the record in the database w/ values in the object
+          country.delete              # delete the record in the database corresponding with the object
+
+    DataMapper
+
+      a seperate class (ex. ContactMapper) is used to convert between the class we want to persist (ex. Contact)
+        the class we work with inside our application (ex. Contact) knows nothing about databases
+        the persistance class (ex. ContactMapper) knows how to create/update/delete contact instances (ex. ContactMapper.update(c)) and read (ex. ContactMapper.getAll())
+
+          country = Country.new    # Country class knows about nothing about the DB
+
+          CountryMapper.persist(country)          # persists the given country object to database (insert or update)
+
+          countries = CountryMapper.all
+          country = CountryMapper.find(5)
+          CountryMapper.find_by_name("Canada")
+
+
+    the ActiveRecord pattern is very popular in the Ruby ecosystem (Rails uses it);
+      you will soon start using a gem called 'ActiveRecord'
+
+    the DataMapper pattern is popular in other ecosystems;
+      it's often used when your database structure doesn't exactly match 1:1 with the objects you want;
+      offers better seperation of concerns; also helps avoid your class from becoming too big
+      in ruby, a popular DM gem is: http://datamapper.org/
