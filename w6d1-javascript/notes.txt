@@ -1,0 +1,253 @@
+Intro to JS
+
+HISTORY
+
+Birth of the Web
+  1993 - mosaic (first browser)
+  1994 - netscape browser
+  1995 - javascript (in netscape)
+  1997 - ECMAscript (js standardized)
+
+Dark Ages of JS (js is slow, non-standard, and only good for animations)
+  .
+  .
+  .
+
+Ajax! (no more page reloads)
+  2004 - XMLHttpRequest (ajax)
+  2004 - GMail
+  2005 - google maps
+
+The JS Boom
+  2006 - jquery (utility library)
+  2008 - chrome + V8 (js is fast now!)
+  2009 - node (js runs on the server)
+  2010 - knockout, backbone (start of js frameworks)
+
+Single Page App Frameworks (do everything in js!)
+  2011 - ember
+  2012 - angular
+  2012 - meteor
+  2013 - react
+
+Transpilers (compile things to js)
+  2009 coffeescript
+  2011 clojurescript
+  2014 babel (ES6)
+
+The Future
+  2015 ECMAscript 6 (classes 'n stuff)
+       http://addyosmani.com/blog/ecmascript-6-resources-for-the-curious-javascripter/
+  ???? WebAssembly (new faster language! let's compile to this instead)
+       https://github.com/WebAssembly/design/blob/master/README.md
+
+
+RUBY VS JS
+
+  syntax differences
+    http://agentcooper.io/js-ruby-comparison/
+
+FIRST ORDER FUNCTIONS
+
+  ie. functions are objects
+
+  var square = function(x) {
+    return x*x;
+  }
+  square // the function object
+  square(6) // calling the function
+
+
+  var hello = function() {
+    console.log("hello");
+  }
+
+  hello    //<- reference to the function
+  hello()  //<- calling/running the function
+
+
+
+  no implicit returns (must use return, or else it returns nil)
+  can have anonymous functions
+    (function(foo) { console.log(x) })(x)
+
+  you can pass functions to functions
+
+  often you see anonymous functions passed to functions (like blocks in ruby)
+
+  var each = function(arr, xfn) {
+    for(var i = 0; i < arr.length; i++) {
+      xfn(arr[i]);
+    }
+  }
+
+  each([1,2,3,4], function(x) {
+    console.log(x);
+  });
+
+
+  # ruby equivalent:
+
+  def each(arr)
+    for(i = 0; i < arr.length; i+= 1) do
+      yield(arr[i])
+    end
+  end
+
+  each([1,2,3,4]) do |x|
+    puts x
+  end
+
+
+
+
+
+EVENTS AND ASYNCHRONICITY
+
+  in js, can ask system to "listen" for a type of event, and run some code when it happens
+
+  window.addEventListener("click", function() {
+    console.log("clicked!")
+  });
+  console.log("other stuff")
+
+
+
+
+  the console.log("clicked!") above only gets called when a click happens
+  the console.log("other stuff") gets printed immediately
+
+  the idea that "we schedule code to run in the future" is new
+  very useful for things that can take a long time
+  most system functions (like ajax, or file read) are async
+  your own functions are blocking, (ex. calculating fibonacci), unless you use async functions inside
+
+  make-ajax-request-that-takes-long-time(request-data, function(response-data) {
+      // do something with response-data
+      console.log(response-data);
+      console.log("inside");
+  }, 5000);
+  console.log("outside");
+
+  in ruby, the above example would print: inside, outside
+  in js, the above example would print: outside, inside
+
+  the pattern above is very common:
+    some-async-func(data, callback-function, timeout)
+
+
+  you will this pattern a lot in js, and in node, ex, for accessing files
+  (note: readFile in the example below is not a real function)
+
+  // in ruby, we would do this:
+
+  foo_data = readFile("foo.txt")
+  use(foo_data)
+  bar_data = readFile("bar.txt")
+  use(bar_data)
+
+  // in js, we do this:
+
+  readFile("foo.txt", function(foo_data) {
+     use(foo_data)
+     readFile("bar.txt", function(bar_data) {
+       use(bar_data)
+     })
+  })
+
+SCOPE
+
+  by default, every variable is global, unless you use var
+  get into habit of using var
+  functions create new scopes, can access variables in parent scopes
+
+  var a = 1;
+  // a == 1
+  a = 3;
+  // a == 3
+  var a = 2;
+  // a == 2
+  var f = function() {
+    // a == 2
+    a = 9
+    // a == 9
+    var a = 5;
+    // a == 5
+    var b = 4;
+    // b == 4
+    c = 3;
+    // c == 3
+  }
+  // a == 9
+  // b == undefined
+  // c == 3
+
+CLOSURES
+
+  when a function is created, it will "remember" the variables in scope if it references them
+
+  var f = function(start) {
+    var a = start;
+    return function() {
+      a += 1;
+      console.log(a);
+    }
+  }
+
+  g = f(10);
+  g();
+  g();
+
+  h = f(100);
+  h();
+  h();
+  g();
+  h();
+
+
+HASHES / MAPS == OBJECTS
+
+  js does have objects and supports inheritance (more on that later), but most js is not object-oriented
+
+  can store functions in hashes
+  can have functions return objects
+
+  var contact = {
+    first_name: "John",
+    last_name: "Smith",
+    email: 'john.smith@gmail.com',
+    fullName: function() {
+      return this.first_name + ' ' + this.last_name;
+    }
+  };
+
+  can reference keys in 2 ways:
+
+    contact.first_name; // == "John"
+    contact["first_name"]; // == "John"
+
+  for non-string keys, need to use the [] way:
+
+    obj[5.0] = "five";
+    obj[5.0] // == "five";
+
+
+EXAMPLES
+
+  including on webpage (see app.html)
+
+  app.js
+    console.log
+    prompt, alert
+    setInterval, setTimeout
+    looping
+
+  jquery.js
+    finding elements on page
+    appending
+    change css of elements
+    ajax
+    listening to events
+
+  guessing-game.js
+    example of how to organize code
