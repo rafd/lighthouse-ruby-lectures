@@ -1,0 +1,157 @@
+homework answers
+ https://gist.github.com/rafd/f138e248df032fad74dc
+
+pry
+  irb++
+  http://pryrepl.org/
+  key feature: jump into a certain point in your program, check variables
+
+  require 'pry'
+  binding.pry
+
+
+require vs. require_relative
+
+  require "a"
+    will look for the file based on *the directory the program is RUN from*
+    only use require for gems
+
+  require_relative "relative/path/to/file"
+    will look for the file based on *the driectory the FILE is in*
+    always use require_relative for files
+
+  (both require and require_relative will only load a file once, even if you require it multiple times -- this is likely to happen when you have many files requiring many other files, etc.)
+  every file that depends on another should require_relative those files
+
+
+regex groups
+
+  http://rubular.com/ very useful tool
+
+  you can extract sub-matches using regex groups  (whenever you use brackets inside a regex)
+
+  m = /(\d{3}).?(\d{3}).?(\d{4})/.match("416-123-4567")
+
+  #=> #<MatchData "416-123-4567" 1:"416" 2:"123" 3:"4567">
+
+  MatchData can be accessed like an array, first result is the entire match, the rest are the groups
+
+
+  String#gsub can be passed a block, which has groups defined as $1, $2...
+
+  pattern = /(\d{3}).?(\d{3}).?(\d{4})/
+
+  "123-456-7890".gsub(pattern) do
+     $2+$1+"XXXX"
+   end
+
+  #=> "456123XXXX"
+
+  or, even more succinctly:
+
+  "123-456-7890".gsub(pattern, '\2\1XXXX')   # note the single quotes!!!
+
+  #=> "456123XXXX
+
+
+  also, "string".scan(/someregex/) can be useful
+
+
+p vs puts
+
+  puts will convert the value into a string
+    makes it hard to tell the difference between "" and [] and nil
+
+  p will convert the value into a string with Ruby-like syntax
+    ex. empty string => "\""\"
+    ex. []  =>  "[]"
+
+  if you want to print a value for debugging purposes, use p
+
+
+enumerables
+
+  http://ruby-doc.org/core-2.2.2/Enumerable.html
+  Array, Hashes (and other classes) are subclasses of Enumerable
+    meaning that they all share the methods defined on Enumerable
+
+  #each - do something with each element
+    ["a","b","c"].each do |x,i|
+      puts "#{i}: x"
+    end
+    # 1: a
+    # 2: b
+    # 3: c
+
+    # we use each b/c we want the 'sideffects' of the block
+    # note: each returns the original array, which is useless, so we never assign the result of each to anything (but watch out when using it at the end of a function, b/c it WILL return a value!)
+
+  #map - return list with block applied to every item
+    [1,2,3,4].map { |x| x * 2 }
+    # [2,4,6,8]
+
+  #find - return first thing where block returns true
+    [1,2,3,4].find { |x| x % 2 == 0 }
+    # 2
+
+  #select - return list with items where block returns true
+    [1,2,3,4].select { |x| x % 2 == 0 }
+    # [2,4]
+
+  #reduce - block defines how to combine elements into a new object
+    very powerful, most other enumerable methods can be implemented w/ reduce
+    also called inject (and fold in other languages)
+
+    block is passed in two parameters
+      first:
+        often called "memo"
+        is whatever was return-ed by the previous iteration of the block
+        can be initialized by passing a value to the reduce function
+          (otherwise, skips first item and uses it as initial value of memo)
+      second:
+        the current item
+
+    see reduce.rb for examples
+
+    sum:
+      [1,2,3,4].reduce(0) do |memo,x|
+        memo + x
+      end
+      # 10
+
+    max:
+      [5,1,3,6,2].reduce do |max,n|
+        max > n ? max : n
+      end
+      # 6
+
+    filter:
+      [5,1,3,6,2].reduce([]) do |memo,x|
+        x > 3 ? memo.push(x) : memo
+      end
+      # [5, 6]
+
+    count occurrences:
+      ["a","b","c","d","a","b","a","c"].reduce({}) do |memo,x|
+        memo[x] ||= 0
+        memo[x] += 1
+      end
+      # {"a" => 3, "b" => 2, "c" => 2, "d" => 1}
+
+
+
+
+blocks
+  we've already seen them used by some methods (ex. #each)
+  can make our own methods that take in blocks
+    just have to call 'yield()' inside our method
+    can only take in one block
+  useful to pass in some code/logic to a method
+
+  see blocks.rb for examples
+
+  ruby also has related things called procs & lambdas, but (sadly) they are very rarely used when writing idiomatic Ruby (ie. don't use them)
+    we will see lambdas in javascript though! :)
+    http://www.reactive.io/tips/2008/12/21/understanding-ruby-blocks-procs-and-lambdas/
+
+
