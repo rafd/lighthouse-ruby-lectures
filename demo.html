@@ -43,7 +43,7 @@
 
     nums.forEach(function(n) {
       var $box = $("<div>").addClass("box").appendTo($("#game"));
-      $content = $("<div>").addClass("content").text(n).appendTo($box)
+      var $content = $("<div>").addClass("content").text(n).appendTo($box);
 
       $box.on("click", function() {
         $box.animate()
