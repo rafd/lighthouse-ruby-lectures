@@ -1,0 +1,67 @@
+<html>
+<head>
+  <style>
+    #game {
+      width:290px;
+    }
+    .box {
+      width: 50px;
+      height: 50px;
+      background: #000;
+      margin: 5px;
+      display: inline-block;
+      transition: all 0.25s ease-in-out;
+    }
+    .box.flipping {
+      transform: scale(0,1);
+    }
+    .box.flipped {
+      transform: scale(1,1);
+      background: #666;
+    }
+    .box .content {
+      opacity: 0;
+      color: white;
+      text-align: center;
+      line-height: 50px;
+      font-size: 2em;
+    }
+    .box.flipped .content {
+      opacity: 1;
+    }
+    .box.matched {
+      opacity: 0;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="game"></div>
+
+  <script>
+    var nums = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+
+    nums.forEach(function(n) {
+      var $box = $("<div>").addClass("box").appendTo($("#game"));
+      var $content = $("<div>").addClass("content").text(n).appendTo($box);
+
+      $box.on("click", function() {
+        $box.animate()
+          .addClass("flipping")
+          .delay(250)
+          .queue(function() {
+            $box.removeClass("flipping").addClass("flipped");
+            $(this).dequeue(); })
+          .delay(1000)
+          .queue(function() {
+            $box.addClass("matched");
+            $(this).dequeue(); })
+          .queue(function() {
+            $box.removeClass("flipped");
+            $(this).dequeue();
+          });
+      });
+    });
+  </script>
+</body>
+</html>
