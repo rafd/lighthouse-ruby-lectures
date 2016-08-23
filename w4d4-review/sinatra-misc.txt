@@ -1,0 +1,58 @@
+partials
+
+  <%= erb :_post, locals: {post: @post} %>
+
+
+
+validation error messages:
+
+  validations will automatically add error messages
+
+  to display them:
+
+    <%= @user.errors.messages %>
+
+  can add your own messages (ex. for failed login):
+
+    @user.errors.add :password, "Password wrong, yo!"
+
+
+before filters, "flash" messages
+
+  in actions.rb:
+
+    before do
+      @flash = session[:flash]
+      session.delete(:flash)
+    end
+
+    post '/some-action' do
+      #...
+      session[:flash] = "Some Message"
+      #...
+    end
+
+  in your template:
+    <%= @flash %>
+
+
+
+helpers, current_user helper:
+
+  helpers do
+    def current_user
+      User.find(session[:id]) if session[:id]
+    end
+  end
+
+
+nested parameters:
+
+  in your form:
+
+    <input name="user[email]" ... >
+    <input name="user[password]" ... >
+
+  in your route:
+     params[:user]   # == {email: "abc@xyz.com", password: "abc123"}
+
