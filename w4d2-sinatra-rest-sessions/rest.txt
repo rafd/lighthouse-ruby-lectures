@@ -1,0 +1,30 @@
+REST
+
+way of organizing routes for resources
+“resource” ~= Model/Class ~= Table (most of the time, but sometimes an abstraction, ex. sessions)
+
+GET /things
+  lists all things;
+     Thing.all
+
+GET /things/:id
+  info about id;
+    Thing.find(id)
+
+GET /things/:id/edit
+  form for editing thing
+
+GET /things/new
+  form for new thing
+
+POST /things (w/ thing data)
+  create a new thing;
+    Thing.create(params)
+
+POST /things/:id (w/ thing data)
+  update a thing;
+    Thing.find(id).update(params).save()
+
+DELETE /things/:id
+   delete a thing
+      Thing.find(id).destroy

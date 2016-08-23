@@ -1,0 +1,38 @@
+cookies:
+  server asks client to keep track of keys->values; client will include them in every future request
+  in practise, only used to keep track of things you don't mind losing after the user logs out (very few things)
+
+  sinatra gives you a "cookie" hash, available to use inside your routes
+     will come prepopulated with the cookie
+     the response will automatically include any changes to the cookie
+     (you may need to enable it in your sinatra project: http://www.sinatrarb.com/contrib/cookies.html)
+
+  ex. setting
+    cookies[:foo] = "bar"
+  ex. getting (in another request)
+    cookies[:foo]
+  ex. clearing
+    cookies[:foo] = nil
+
+sessions:
+  abstraction on top of cookies, preventing user from manipulating the data in the cookie (through encryption)
+  in practise, used to store the user id (ex. id = 58); all other data is requested from the database
+
+  sinatra does all the encryption/decryption for you, so using them is just like cookies
+     (you may need to enable it in your sinatra project: http://www.sinatrarb.com/faq.html#sessions)
+
+  ex. setting
+    session[:foo] = "bar"
+  ex. getting (in another request)
+    session[:foo]
+  ex. clearing
+    session.clear
+
+still not sufficient to be secure,
+  need to ALSO use SSL (https) in production servers
+  so that all communications between browser<->server are encrypted
+  otherwise:
+    1) login usernames / passwords sent in plain text, can be read by anycomputer between browser<-> (wifi router, network provider, Rogers, NSA, etc.)
+    2) b/c sessions are also text, they can be stolen by any computer along the path and used to login as someone
+
+    these aren't "fairy-tale" problems, there have been real-world cases that have taken advantage of this
