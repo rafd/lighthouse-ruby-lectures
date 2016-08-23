@@ -1,0 +1,151 @@
+# MOCKING / STUBBING
+
+# want to test Foo.act_on_database
+
+class Foo
+  def self.act_on_database(db)
+    # ...
+    db.connect
+    db.query
+    db.query
+    db.query
+    db.close
+  end
+end
+
+# using a mock
+# create a fake db object and add fake methods to it
+
+test_db = double("db1")
+expect(test_db).to receive(:class).and_return(Soldier)
+expect(test_db).to receive(:connect).once
+expect(test_db).to receive(:query).at_least(3).times.and_return(0)
+expect(test_db).to receive(:close).once
+
+result = Foo.act_on_database(db)
+expect(result).to eq(5)
+
+# not using a mock
+# need to have Database class and all methods implemented
+
+class Database
+  def initialize(params)
+    #...
+  end
+
+  def connect
+    #...
+  end
+
+  def query
+    #...
+  end
+
+  def close
+    #...
+  end
+end
+
+db = Database.new({config: params})
+result = Foo.act_on_database(db)
+expect(result).to eq(5)
+
+
+# stubbing
+# use a real database object
+# but add fake methods to dit
+
+class Database
+  def initialize
+    #...
+  end
+end
+
+test_db = Database.new()
+expect(test_db).to receive(:query).at_least(3).times.and_return(0)
+result = Foo.act_on_database(db)
+expect(result).to eq(5)
+
+
+
+# SOLDIER HEALTH EXAMPLE
+
+def Soldier
+  attr_reader :health
+
+  def initialize()
+    @health = 100
+  end
+
+  def can_attack?
+    # must use reader (ie. health, not @health)
+    # or else we won't call the stub when it overwrites the health reader
+    health > 20
+  end
+
+  def damage
+    @health -= 10
+  end
+
+  # this is what attr_reader :health adds:
+  # def health
+  #   @health
+  # end
+
+  # this is what the stub below adds:
+  # def health
+  #  20
+  # end
+
+end
+
+
+# we want to test #can_attack?
+
+describe Soldier do
+  describe '#can_attack?' do
+    it 'returns true when health > 20' do
+       soldier = Soldier.new
+
+       expect(soldier.can_attack?).to eq(true)
+    end
+    it 'returns false when health < 20' do
+       soldier = Soldier.new
+       # ... somehow get soldier health to be < 20
+
+       expect(soldier.can_attack?).to eq(false) # actual test
+    end
+  end
+end
+
+# how do we get test soldier to less than 20 health?
+
+# strategy 1: use other methods to decrease health
+
+soldier = Soldier.new
+soldier.damage
+soldier.damage
+soldier.damage
+soldier.damage
+soldier.damage
+
+# pros: no changes to class
+# cons: sometimes non-trivial/impossible to get into correct state; error-prone; adds dependencies on other methods
+
+
+# strategy 2: change initialize to take health
+
+soldier = Soldier.new(20)
+
+# pros: simple
+# cons: you now require initialize parameters; now signaling that its ok to change initial health, which could not be what you want
+
+
+# strategy 3: use stubs, and make sure #can_attack? accesses health via the reader (not the instance variable directly)
+
+soldier = Soldier.new
+expect(soldier).to receive(:health).with(19) # stubbing
+
+# pros: minimal changes to code (need to have reader and use it); doesn't really affect how the class will used (changes only are done in tests)
+# cons: can be confusing
+
