@@ -9,6 +9,12 @@ end
 
 get "/cities" do
   content_type :json
-  CITIES.to_json
+  if params["query"].length == 0
+    return [].to_json
+  else
+    CITIES.select { |city|
+      city.downcase =~ Regexp.new("^"+params["query"].downcase)
+    }.to_json
+  end
 end
 

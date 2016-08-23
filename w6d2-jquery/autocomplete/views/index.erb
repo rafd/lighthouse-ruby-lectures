@@ -6,48 +6,27 @@
   <div id="autocomplete"></div>
 
   <script type="text/javascript">
-    $.ajax({url:"/cities"}).done(function(data) {
-      cities = data;
+    $autocomplete = $("#autocomplete").attr("placeholder","Search");
+    $input = $("<input>").appendTo($autocomplete);
+    $list = $("<div>").addClass("cities").appendTo($autocomplete);
 
+    $input.on("keyup", function(e) {
+      var query = $input.val();
 
-    $autocomplete = $("#autocomplete")
-    $input = $("<input>").attr("placeholder","Search")
-
-    $cities = $("<div>").addClass("cities")
-
-    var clearCities = function(cities) {
-      $cities.empty();
-    }
-
-    var showCities = function(cities) {
-      clearCities();
-      cities.sort().forEach(function(city) {
-        $("<div>").addClass("city").text(city).appendTo($cities).on("click",function(e) {
-          $input.val(city);
-          clearCities();
+      if(query.length > 0) {
+        $.ajax({
+          method: "GET",
+          url: "/cities",
+          data: {query: query}
+        }).done(function(response) {
+          $list.empty();
+          response.forEach(function(city) {
+            $("<div>").addClass("city").text(city).appendTo($list);
+          });
         });
-      });
-    }
-
-    $cities.on("mouseover",".city",function(e) {
-      $(e.target).css("color","red");
+      }
     });
 
-    showCities(cities);
-
-    $input.on("keyup", function(e){
-      var query = $input.val()
-      var filteredCities = cities.filter(function(city) {
-        return city.toLowerCase().indexOf(query.toLowerCase()) != -1
-      });
-      showCities(filteredCities);
-    });
-
-    $autocomplete
-      .append($input)
-      .append($cities)
-
-    });
   </script>
 </body>
 </html>
