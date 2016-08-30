@@ -1,16 +1,26 @@
-var ws = require('ws').Server,
-    server = new ws({port: 4000});
+var ws = require('ws');
+var fs = require('fs');
+var http = require('http');
 
-if(server) {
-  console.log('server started');
-}
+// HTTP SERVER
+
+http.createServer(function(request, response) {
+  file = request.url == "/" ? "index.html" : request.url;
+  fs.readFile("./"+file, "binary", function(err, content) {
+    response.end(content);
+  });
+}).listen(9997);
+
+// WEBSOCKET SERVER
+
+var server = new ws.Server({port: 4000});
 
 server.on('connection', function(client) {
   console.log('connected');
 
   client.on('message', function(message) {
     var message = JSON.parse(message);
-    console.log('received message:', message);
+    //console.log('received message:', message);
 
     switch(message.cmd) {
       case 'mousemove':

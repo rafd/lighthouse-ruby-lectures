@@ -4,6 +4,6 @@ then:
 
 `node server.js`
 
-then (in another terminal):
+then visit:
 
-`open index.html`
+`http://localhost:9997/`

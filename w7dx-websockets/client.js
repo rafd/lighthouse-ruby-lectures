@@ -6,6 +6,8 @@ var chat = {
   _init: function(name) {
     chat._name = name;
     chat._showChat();
+    // need to change the URL to an IP or domain
+    // localhost will only work for testing on this machine
     chat._connection = new WebSocket("ws://localhost:4000");
 
     if (chat._connection) {
