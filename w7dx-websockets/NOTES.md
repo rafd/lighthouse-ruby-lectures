@@ -133,10 +133,8 @@ ex. chat app, email client, game, screen-share
    ```
    HTTP  WS  WebRTC     <- available to JavaScript in the browser
      \   /   /
-      TCP   /
+      TCP   UDP
         \  /
-         UDP
-          |
          IP
   ```
 
